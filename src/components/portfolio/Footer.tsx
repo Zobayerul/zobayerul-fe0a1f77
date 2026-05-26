@@ -74,7 +74,7 @@ export function Footer() {
         <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Zobayerul Islam. All rights reserved.</p>
           <p>
-            Crafted with <span className="text-primary">♥</span> by{" "}
+            Design By{" "}
             <span className="text-gradient font-semibold">Zobayerul Islam</span>
           </p>
         </div>
