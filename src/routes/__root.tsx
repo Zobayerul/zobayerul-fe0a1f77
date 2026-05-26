@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Zobayerul Islam" },
+      { name: "description", content: "Zenith Digital Studio is a modern, premium personal portfolio website for a Web Developer & Ecommerce Expert." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Zobayerul Islam" },
+      { property: "og:description", content: "Zenith Digital Studio is a modern, premium personal portfolio website for a Web Developer & Ecommerce Expert." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Zobayerul Islam" },
+      { name: "twitter:description", content: "Zenith Digital Studio is a modern, premium personal portfolio website for a Web Developer & Ecommerce Expert." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/31c3d62c-bc7e-42da-89b5-6035bfd186d0/id-preview-fb893c22--98f4b44c-6b00-4278-b332-ab0612cc33a3.lovable.app-1779809973399.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/31c3d62c-bc7e-42da-89b5-6035bfd186d0/id-preview-fb893c22--98f4b44c-6b00-4278-b332-ab0612cc33a3.lovable.app-1779809973399.png" },
     ],
     links: [
       {
