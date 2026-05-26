@@ -11,7 +11,7 @@ export function Footer() {
               <span className="grid place-items-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground">
                 <Code2 className="w-5 h-5" />
               </span>
-              <span className="text-gradient">Zobayerul</span>
+              <span className="text-gradient">Zobayerul Islam</span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Web Developer & Ecommerce Expert building modern digital solutions for ambitious brands worldwide.

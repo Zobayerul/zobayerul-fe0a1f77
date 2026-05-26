@@ -36,7 +36,7 @@ export function Navbar() {
             <span className="grid place-items-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground">
               <Code2 className="w-5 h-5" />
             </span>
-            <span className="text-gradient">Zobayerul</span>
+            <span className="text-gradient">Zobayerul Islam</span>
           </a>
 
           <ul className="hidden lg:flex items-center gap-8 text-sm font-medium">
