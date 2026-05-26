@@ -5,9 +5,11 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import path from "node:path";
 
 // Standalone SPA build for cPanel / static hosting.
-// Output: dist-static/  (single folder with index.html + assets/)
+// Output: dist-static/ (single folder with index.html + assets/)
 // Usage:  bun run build:static
+// Then upload everything inside dist-static/ to your cPanel public_html/.
 export default defineConfig({
+  root: path.resolve(__dirname, "static-app"),
   plugins: [react(), tailwindcss(), tsconfigPaths()],
   resolve: {
     alias: {
@@ -16,7 +18,7 @@ export default defineConfig({
   },
   base: "./",
   build: {
-    outDir: "dist-static",
+    outDir: path.resolve(__dirname, "dist-static"),
     emptyOutDir: true,
   },
 });
