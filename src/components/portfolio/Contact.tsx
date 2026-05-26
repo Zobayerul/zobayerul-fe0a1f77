@@ -46,15 +46,15 @@ export function Contact() {
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 glass rounded-2xl p-5">
+              <a href="mailto:support@zobayerul.com" className="group flex items-center gap-4 glass rounded-2xl p-5 hover-lift">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center">
                   <Mail className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">Email</div>
-                  <div className="font-semibold">hello@zobayerul.dev</div>
+                  <div className="font-semibold">support@zobayerul.com</div>
                 </div>
-              </div>
+              </a>
 
               <div className="flex items-center gap-4 glass rounded-2xl p-5">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center">
