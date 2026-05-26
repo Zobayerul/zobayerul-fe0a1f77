@@ -41,7 +41,7 @@ export function Hero() {
             className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6"
           >
             Building Modern{" "}
-            <span className="text-gradient">Websites</span> & Digital Solutions{" "}
+            <span className="text-gradient">Solution</span>{" "}
             <span className="text-gradient">That Grow</span> Businesses.
           </motion.h1>
 
