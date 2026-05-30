@@ -25,7 +25,7 @@ const reviews = [
 
 export function Testimonials() {
   return (
-    <section className="relative py-28">
+    <section className="relative py-16">
       <div className="container mx-auto px-6">
         <SectionHeader
           eyebrow="Testimonials"

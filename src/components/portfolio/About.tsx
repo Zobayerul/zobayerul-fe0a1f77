@@ -13,7 +13,7 @@ const skills = [
 
 export function About() {
   return (
-    <section id="about" className="relative py-28">
+    <section id="about" className="relative py-16">
       <div className="container mx-auto px-6">
         <SectionHeader
           eyebrow="About Me"
