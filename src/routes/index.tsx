@@ -52,12 +52,12 @@ function Index() {
         <Hero />
         <About />
         <Services />
-        <Projects />
         <WhyChooseMe />
         <Process />
         <Testimonials />
         <FAQ />
         <Education />
+        <Projects />
         <Contact />
       </main>
       <Footer />
