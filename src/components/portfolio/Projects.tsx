@@ -23,7 +23,7 @@ export function Projects() {
       <div className="container mx-auto px-6">
         <SectionHeader
           eyebrow="Portfolio"
-          title={<>Recent <span className="text-gradient">projects</span> & case studies</>}
+          title={<>Recent <span className="text-gradient">projects</span></>}
           description="A selection of digital products built end-to-end for global clients."
         />
 
