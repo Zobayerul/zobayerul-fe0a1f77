@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const links = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
+  { href: "#projects", label: "Work" },
   { href: "#process", label: "Process" },
   { href: "#contact", label: "Contact" },
 ];
@@ -23,23 +23,23 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-3" : "py-5"
+        scrolled ? "py-2.5" : "py-4"
       }`}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <nav
-          className={`flex items-center justify-between rounded-2xl px-5 py-3 transition-all ${
+          className={`flex items-center justify-between rounded-full px-4 sm:px-5 py-2.5 transition-all ${
             scrolled ? "glass-strong" : "glass"
           }`}
         >
-          <a href="#home" className="flex items-center gap-2 font-display font-bold text-lg">
-            <span className="grid place-items-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground">
-              <Code2 className="w-5 h-5" />
+          <a href="#home" className="flex items-center gap-2 font-display text-lg sm:text-xl">
+            <span className="grid place-items-center w-8 h-8 rounded-full bg-foreground text-background text-xs font-sans font-bold">
+              ZI
             </span>
-            <span className="text-gradient">Zobayerul Islam</span>
+            <span className="tracking-tight">Zobayerul <span className="italic text-accent">Islam</span></span>
           </a>
 
-          <ul className="hidden lg:flex items-center gap-8 text-sm font-medium">
+          <ul className="hidden lg:flex items-center gap-7 text-sm">
             {links.map((l) => (
               <li key={l.href}>
                 <a
@@ -47,7 +47,7 @@ export function Navbar() {
                   className="text-muted-foreground hover:text-foreground transition-colors relative group"
                 >
                   {l.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300" />
                 </a>
               </li>
             ))}
@@ -55,9 +55,9 @@ export function Navbar() {
 
           <a
             href="#contact"
-            className="hidden lg:inline-flex items-center px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold text-sm hover:shadow-[0_0_30px_oklch(0.82_0.14_210/0.5)] transition-all"
+            className="hidden lg:inline-flex items-center px-5 py-2 rounded-full bg-foreground text-background font-medium text-sm hover:bg-foreground/90 transition-all"
           >
-            Hire Me
+            Let's talk
           </a>
 
           <button
@@ -71,13 +71,13 @@ export function Navbar() {
 
         {open && (
           <div className="lg:hidden mt-2 glass-strong rounded-2xl p-5 animate-fade-in">
-            <ul className="flex flex-col gap-4">
+            <ul className="flex flex-col gap-3">
               {links.map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block text-foreground/80 hover:text-primary"
+                    className="block py-1 text-foreground/80 hover:text-accent"
                   >
                     {l.label}
                   </a>
@@ -86,9 +86,9 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="text-center px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold"
+                className="text-center mt-2 px-5 py-2.5 rounded-full bg-foreground text-background font-medium"
               >
-                Hire Me
+                Let's talk
               </a>
             </ul>
           </div>
