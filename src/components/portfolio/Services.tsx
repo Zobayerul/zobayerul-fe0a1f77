@@ -28,20 +28,19 @@ export function Services() {
           description="From idea to launch — production-grade development across web, mobile, and enterprise software."
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {services.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.05}>
-              <div className="group relative h-full glass rounded-2xl p-7 hover-lift overflow-hidden">
-                <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="group relative h-full glass rounded-2xl p-6 sm:p-7 hover-lift overflow-hidden">
                 <div className="relative">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30 grid place-items-center mb-5 group-hover:scale-110 group-hover:shadow-[0_0_30px_oklch(0.82_0.14_210/0.5)] transition-all">
-                    <s.icon className="w-6 h-6 text-primary" />
+                  <div className="w-12 h-12 rounded-xl bg-muted border border-border grid place-items-center mb-5 group-hover:bg-foreground group-hover:text-background transition-all">
+                    <s.icon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+                  <h3 className="font-display text-xl mb-2 flex items-center gap-2">
                     {s.title}
-                    <ArrowUpRight className="w-4 h-4 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                    <ArrowUpRight className="w-4 h-4 text-accent opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{s.text}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.text}</p>
                 </div>
               </div>
             </Reveal>
@@ -51,3 +50,4 @@ export function Services() {
     </section>
   );
 }
+

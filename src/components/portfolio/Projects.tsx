@@ -27,32 +27,31 @@ export function Projects() {
           description="A selection of digital products built end-to-end for global clients."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {projects.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.05}>
               <article className="group relative rounded-2xl overflow-hidden glass hover-lift h-full">
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   <img
                     src={p.img}
                     alt={p.title}
                     width={1024}
                     height={768}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-90" />
-                  <span className="absolute top-4 left-4 glass-strong text-xs font-semibold px-3 py-1.5 rounded-full text-primary">
+                  <span className="absolute top-3 left-3 bg-background/90 backdrop-blur text-[10px] sm:text-xs font-medium px-2.5 py-1 rounded-full text-foreground border border-border">
                     {p.tag}
                   </span>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="text-xl font-bold">{p.title}</h3>
-                    <button className="w-9 h-9 rounded-full glass grid place-items-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
-                      <ExternalLink className="w-4 h-4" />
+                <div className="p-5 sm:p-6">
+                  <div className="flex items-start justify-between gap-3 mb-1.5">
+                    <h3 className="font-display text-xl leading-tight">{p.title}</h3>
+                    <button className="w-8 h-8 rounded-full bg-muted grid place-items-center text-foreground/70 group-hover:bg-foreground group-hover:text-background transition-all">
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </button>
                   </div>
-                  <p className="text-sm text-muted-foreground">{p.desc}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                 </div>
               </article>
             </Reveal>
@@ -62,3 +61,4 @@ export function Projects() {
     </section>
   );
 }
+

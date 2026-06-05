@@ -23,16 +23,16 @@ export function WhyChooseMe() {
           title={<>The advantage of working with a <span className="text-gradient">dedicated expert</span></>}
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {items.map((it, i) => (
             <Reveal key={it.title} delay={i * 0.05}>
-              <div className="group glass rounded-2xl p-6 flex gap-5 hover-lift">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent grid place-items-center group-hover:rotate-6 transition-transform">
-                  <it.icon className="w-5 h-5 text-primary-foreground" />
+              <div className="group glass rounded-2xl p-5 sm:p-6 flex gap-4 sm:gap-5 hover-lift">
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-foreground text-background grid place-items-center group-hover:bg-accent transition-colors">
+                  <it.icon className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-1">{it.title}</h3>
-                  <p className="text-sm text-muted-foreground">{it.text}</p>
+                  <h3 className="font-display text-lg mb-1">{it.title}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{it.text}</p>
                 </div>
               </div>
             </Reveal>
@@ -42,3 +42,4 @@ export function WhyChooseMe() {
     </section>
   );
 }
+

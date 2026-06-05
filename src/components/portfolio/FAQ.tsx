@@ -28,14 +28,14 @@ export function FAQ() {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={i * 0.04}>
-                <div className={`glass rounded-2xl overflow-hidden transition-all ${isOpen ? "glow-cyan" : ""}`}>
+                <div className={`glass rounded-2xl overflow-hidden transition-all ${isOpen ? "ring-1 ring-accent/30" : ""}`}>
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 p-6 text-left"
+                    className="w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left"
                   >
-                    <span className="font-semibold text-lg">{f.q}</span>
+                    <span className="font-display text-base sm:text-lg leading-snug">{f.q}</span>
                     <Plus
-                      className={`w-5 h-5 text-primary flex-shrink-0 transition-transform duration-300 ${
+                      className={`w-4 h-4 text-accent flex-shrink-0 transition-transform duration-300 ${
                         isOpen ? "rotate-45" : ""
                       }`}
                     />
@@ -46,7 +46,7 @@ export function FAQ() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-6 text-muted-foreground leading-relaxed">{f.a}</p>
+                      <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-muted-foreground leading-relaxed">{f.a}</p>
                     </div>
                   </div>
                 </div>
