@@ -20,16 +20,16 @@ export function Process() {
           title={<>A proven path from <span className="text-gradient">idea to launch</span></>}
         />
 
-        <div className="relative grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="relative grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {steps.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.07}>
-              <div className="relative glass rounded-2xl p-7 h-full hover-lift">
-                <div className="absolute -top-4 -left-4 w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent grid place-items-center font-display font-bold text-primary-foreground text-lg shadow-[0_0_30px_oklch(0.82_0.14_210/0.5)]">
+              <div className="relative glass rounded-2xl p-6 sm:p-7 h-full hover-lift">
+                <div className="absolute -top-3 left-6 px-2.5 py-1 rounded-full bg-foreground text-background font-display text-xs">
                   0{i + 1}
                 </div>
-                <s.icon className="w-8 h-8 text-primary mb-4 mt-3" />
-                <h3 className="text-xl font-bold mb-2">{s.title}</h3>
-                <p className="text-sm text-muted-foreground">{s.text}</p>
+                <s.icon className="w-7 h-7 text-accent mb-4 mt-2" />
+                <h3 className="font-display text-xl mb-2">{s.title}</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{s.text}</p>
               </div>
             </Reveal>
           ))}
@@ -38,3 +38,4 @@ export function Process() {
     </section>
   );
 }
+
