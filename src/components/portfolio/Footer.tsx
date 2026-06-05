@@ -1,27 +1,27 @@
-import { Code2, Facebook, Github, Linkedin, Twitter, Instagram } from "lucide-react";
+import { Facebook, Github, Linkedin, Twitter, Instagram } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-border pt-16 pb-8 mt-10">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent to-background" />
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+    <footer className="relative border-t border-border pt-14 pb-8 mt-10 bg-muted/30">
+      <div className="container mx-auto px-5 sm:px-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           <div>
-            <a href="#home" className="flex items-center gap-2 font-display font-bold text-lg mb-4">
-              <span className="grid place-items-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground">
-                <Code2 className="w-5 h-5" />
+            <a href="#home" className="flex items-center gap-2 font-display text-lg mb-4">
+              <span className="grid place-items-center w-9 h-9 rounded-full bg-foreground text-background text-xs font-sans font-bold">
+                ZI
               </span>
-              <span className="text-gradient">Zobayerul Islam</span>
+              <span>Zobayerul <span className="italic text-accent">Islam</span></span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Web Developer & Ecommerce Expert building modern digital solutions for ambitious brands worldwide.
+              Independent web developer & ecommerce specialist, partnering with
+              ambitious brands worldwide to ship products that perform.
             </p>
-            <div className="flex gap-3 mt-5">
+            <div className="flex gap-2 mt-5">
               {[Facebook, Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"
-                  className="w-10 h-10 rounded-xl glass grid place-items-center text-muted-foreground hover:text-primary hover:glow-cyan transition-all"
+                  className="w-9 h-9 rounded-full border border-border bg-card grid place-items-center text-muted-foreground hover:text-accent hover:border-accent/40 transition-all"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -30,11 +30,11 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Quick Links</h4>
+            <h4 className="font-display text-base mb-4">Explore</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {["Home", "About", "Services", "Projects", "Contact"].map((l) => (
                 <li key={l}>
-                  <a href={`#${l.toLowerCase()}`} className="hover:text-primary transition-colors">
+                  <a href={`#${l.toLowerCase()}`} className="hover:text-accent transition-colors">
                     {l}
                   </a>
                 </li>
@@ -43,27 +43,27 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Services</h4>
+            <h4 className="font-display text-base mb-4">What I Build</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {["Web Development", "Ecommerce", "Mobile Apps", "CRM & ERP", "Custom Software"].map((l) => (
                 <li key={l}>
-                  <a href="#services" className="hover:text-primary transition-colors">{l}</a>
+                  <a href="#services" className="hover:text-accent transition-colors">{l}</a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold mb-4">Contact</h4>
+            <h4 className="font-display text-base mb-4">Say Hello</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="https://wa.me/8801968634181" className="hover:text-primary transition-colors">
-                  WhatsApp: +8801968634181
+                <a href="https://wa.me/8801968634181" className="hover:text-accent transition-colors">
+                  WhatsApp · +8801968634181
                 </a>
               </li>
               <li>
-                <a href="tel:01968634181" className="hover:text-primary transition-colors">
-                  Phone: 01968634181
+                <a href="tel:01968634181" className="hover:text-accent transition-colors">
+                  Phone · 01968634181
                 </a>
               </li>
               <li>Bangladesh — Worldwide</li>
@@ -71,11 +71,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
+        <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Zobayerul Islam. All rights reserved.</p>
           <p>
-            Design By{" "}
-            <span className="text-gradient font-semibold">Zobayerul Islam</span>
+            Crafted with care by{" "}
+            <span className="text-accent italic font-display">Zobayerul Islam</span>
           </p>
         </div>
       </div>
