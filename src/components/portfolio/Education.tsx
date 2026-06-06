@@ -62,11 +62,3 @@ export function Education() {
     </section>
   );
 }
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
