@@ -22,7 +22,7 @@ function App() {
       <main>
         <Hero />
         <About />
-        
+        <Education />
         <Services />
         <WhyChooseMe />
         <Process />
