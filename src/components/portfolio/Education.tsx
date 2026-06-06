@@ -54,22 +54,14 @@ export function Education() {
                 </div>
                 <h3 className="font-display text-lg mb-1 leading-snug">{it.degree}</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground mb-4">Passing year: {it.year}</p>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between gap-3">
-                    <span className="text-muted-foreground">Institution</span>
-                    <span className="text-foreground text-right">{it.institution}</span>
-                  </div>
-                  {it.board && (
-                    <div className="flex justify-between gap-3">
-                      <span className="text-muted-foreground">Board</span>
-                      <span className="text-foreground">{it.board}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between gap-3">
-                    <span className="text-muted-foreground">Result</span>
-                    <span className="text-accent font-semibold">{it.result}</span>
-                  </div>
-                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
               </div>
             </Reveal>
           ))}
