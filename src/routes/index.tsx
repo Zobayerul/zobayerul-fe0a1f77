@@ -51,7 +51,7 @@ function Index() {
       <main>
         <Hero />
         <About />
-        <Education />
+        
         <Services />
         <WhyChooseMe />
         <Process />
