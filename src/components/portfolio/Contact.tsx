@@ -97,7 +97,7 @@ export function Contact() {
                   required
                   rows={5}
                   placeholder="Tell me about your project..."
-                  className="w-full rounded-xl bg-background/40 border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                  className="w-full rounded-xl bg-card border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none"
                 />
               </div>
               <button
@@ -127,7 +127,7 @@ function Field({ label, type, placeholder }: { label: string; type: string; plac
         type={type}
         required
         placeholder={placeholder}
-        className="w-full rounded-xl bg-background/40 border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+        className="w-full rounded-xl bg-card border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
       />
     </div>
   );

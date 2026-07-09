@@ -22,13 +22,13 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 pointer-events-none ${
         scrolled ? "py-2.5" : "py-4"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto px-4 sm:px-6 pointer-events-none">
         <nav
-          className={`flex items-center justify-between rounded-full px-4 sm:px-5 py-2.5 transition-all ${
+          className={`pointer-events-auto flex items-center justify-between rounded-full px-4 sm:px-5 py-2.5 transition-all ${
             scrolled ? "glass-strong" : "glass"
           }`}
         >
@@ -70,7 +70,7 @@ export function Navbar() {
         </nav>
 
         {open && (
-          <div className="lg:hidden mt-2 glass-strong rounded-2xl p-5 animate-fade-in">
+          <div className="pointer-events-auto lg:hidden mt-2 glass-strong rounded-2xl p-5 animate-fade-in">
             <ul className="flex flex-col gap-3">
               {links.map((l) => (
                 <li key={l.href}>
