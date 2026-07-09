@@ -13,6 +13,7 @@ export function Hero() {
       </div>
 
       <div className="container mx-auto px-5 sm:px-6 grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-center">
+        {/* Profile — first on mobile */}
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
