@@ -13,8 +13,7 @@ export function Hero() {
       </div>
 
       <div className="container mx-auto px-5 sm:px-6 grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-center">
-        {/* Profile — first on mobile */}
-        <div>
+        <div className="order-2 lg:order-1">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,12 +94,11 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Profile */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className="relative mx-auto"
+          className="relative mx-auto order-1 lg:order-2"
         >
           <div className="absolute inset-0 -z-10 blur-3xl bg-accent/15 rounded-full" />
           <div className="relative w-[260px] sm:w-[320px] md:w-[400px] aspect-square animate-float">
