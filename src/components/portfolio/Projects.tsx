@@ -54,16 +54,6 @@ export function Projects() {
                   <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                 </div>
               </a>
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-start justify-between gap-3 mb-1.5">
-                    <h3 className="font-display text-xl leading-tight">{p.title}</h3>
-                    <button className="w-8 h-8 rounded-full bg-muted grid place-items-center text-foreground/70 group-hover:bg-foreground group-hover:text-background transition-all">
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-                </div>
-              </article>
             </Reveal>
           ))}
         </div>
