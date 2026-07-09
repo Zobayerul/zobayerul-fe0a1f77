@@ -9,12 +9,12 @@ import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
 
 const projects = [
-  { img: p1, title: "Lumen Ecommerce", tag: "Ecommerce", desc: "Multi-vendor marketplace with realtime inventory." },
-  { img: p2, title: "Nova Mobile App", tag: "Mobile App", desc: "Cross-platform fitness app with AI coaching." },
-  { img: p3, title: "PulseCRM", tag: "CRM / SaaS", desc: "Sales pipeline and customer analytics dashboard." },
-  { img: p4, title: "EduStream LMS", tag: "LMS", desc: "Live classes, quizzes, and progress tracking." },
-  { img: p5, title: "Stay Booking", tag: "Booking", desc: "Hotel and venue reservation platform." },
-  { img: p6, title: "Stockflow", tag: "Inventory", desc: "Warehouse and supplier management system." },
+  { img: p1, title: "Tour Booking Platform", tag: "Travel", desc: "End-to-end tour and travel booking system.", url: "https://tour.betabig.com/" },
+  { img: p2, title: "MediBook", tag: "Healthcare", desc: "Doctor appointment and clinic management app.", url: "https://medibook.betabig.com/" },
+  { img: p3, title: "Payroll System", tag: "HR / SaaS", desc: "Employee payroll, salary and attendance manager.", url: "https://payroll.betabig.com/" },
+  { img: p4, title: "Farm Management", tag: "AgriTech", desc: "Livestock, inventory and operations dashboard.", url: "https://farm.betabig.com/" },
+  { img: p5, title: "Toolify", tag: "SaaS Tools", desc: "All-in-one productivity toolkit for teams.", url: "https://toolify.betabig.com/" },
+  { img: p6, title: "Food Order", tag: "Ecommerce", desc: "Restaurant ordering and delivery platform.", url: "https://foodorder.betabig.com/" },
 ];
 
 export function Projects() {

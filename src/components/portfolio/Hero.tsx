@@ -119,7 +119,7 @@ export function Hero() {
             </div>
             <div className="absolute -bottom-3 -right-3 glass-strong rounded-2xl px-4 py-2.5">
               <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Web · Ecommerce</div>
-              <div className="text-sm font-semibold font-display italic text-accent">Senior Developer</div>
+              <div className="text-sm font-semibold font-display italic text-accent">Developer</div>
             </div>
           </div>
         </motion.div>
