@@ -12,6 +12,7 @@ import { FAQ } from "@/components/portfolio/FAQ";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { WhatsAppFab } from "@/components/portfolio/WhatsAppFab";
+import { ThemeToggle } from "@/components/portfolio/ThemeToggle";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,6 +63,7 @@ function Index() {
       </main>
       <Footer />
       <WhatsAppFab />
+      <ThemeToggle />
     </div>
   );
 }

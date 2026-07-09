@@ -9,12 +9,12 @@ import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
 
 const projects = [
-  { img: p1, title: "Lumen Ecommerce", tag: "Ecommerce", desc: "Multi-vendor marketplace with realtime inventory." },
-  { img: p2, title: "Nova Mobile App", tag: "Mobile App", desc: "Cross-platform fitness app with AI coaching." },
-  { img: p3, title: "PulseCRM", tag: "CRM / SaaS", desc: "Sales pipeline and customer analytics dashboard." },
-  { img: p4, title: "EduStream LMS", tag: "LMS", desc: "Live classes, quizzes, and progress tracking." },
-  { img: p5, title: "Stay Booking", tag: "Booking", desc: "Hotel and venue reservation platform." },
-  { img: p6, title: "Stockflow", tag: "Inventory", desc: "Warehouse and supplier management system." },
+  { img: p1, title: "Tour Booking Platform", tag: "Travel", desc: "End-to-end tour and travel booking system.", url: "https://tour.betabig.com/" },
+  { img: p2, title: "MediBook", tag: "Healthcare", desc: "Doctor appointment and clinic management app.", url: "https://medibook.betabig.com/" },
+  { img: p3, title: "Payroll System", tag: "HR / SaaS", desc: "Employee payroll, salary and attendance manager.", url: "https://payroll.betabig.com/" },
+  { img: p4, title: "Farm Management", tag: "AgriTech", desc: "Livestock, inventory and operations dashboard.", url: "https://farm.betabig.com/" },
+  { img: p5, title: "Toolify", tag: "SaaS Tools", desc: "All-in-one productivity toolkit for teams.", url: "https://toolify.betabig.com/" },
+  { img: p6, title: "Food Order", tag: "Ecommerce", desc: "Restaurant ordering and delivery platform.", url: "https://foodorder.betabig.com/" },
 ];
 
 export function Projects() {
@@ -30,7 +30,7 @@ export function Projects() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {projects.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.05}>
-              <article className="group relative rounded-2xl overflow-hidden glass hover-lift h-full">
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="group relative rounded-2xl overflow-hidden glass hover-lift h-full block">
                 <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   <img
                     src={p.img}
@@ -47,13 +47,13 @@ export function Projects() {
                 <div className="p-5 sm:p-6">
                   <div className="flex items-start justify-between gap-3 mb-1.5">
                     <h3 className="font-display text-xl leading-tight">{p.title}</h3>
-                    <button className="w-8 h-8 rounded-full bg-muted grid place-items-center text-foreground/70 group-hover:bg-foreground group-hover:text-background transition-all">
+                    <span className="w-8 h-8 rounded-full bg-muted grid place-items-center text-foreground/70 group-hover:bg-foreground group-hover:text-background transition-all shrink-0">
                       <ExternalLink className="w-3.5 h-3.5" />
-                    </button>
+                    </span>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                 </div>
-              </article>
+              </a>
             </Reveal>
           ))}
         </div>

@@ -71,12 +71,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-muted-foreground">
+        <div className="border-t border-border pt-6 text-center text-xs sm:text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Zobayerul Islam. All rights reserved.</p>
-          <p>
-            Crafted with care by{" "}
-            <span className="text-accent italic font-display">Zobayerul Islam</span>
-          </p>
         </div>
       </div>
     </footer>

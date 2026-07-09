@@ -77,6 +77,30 @@
   --glass-bg: oklch(0.18 0.01 250 / 60%);
 }
 
+.light {
+  --background: oklch(0.98 0.004 90);
+  --foreground: oklch(0.18 0.01 250);
+  --navy: oklch(0.96 0.005 90);
+  --deep-blue: oklch(0.93 0.006 90);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.01 250);
+  --primary: oklch(0.55 0.17 55);
+  --primary-foreground: oklch(0.98 0.004 90);
+  --secondary: oklch(0.94 0.006 90);
+  --secondary-foreground: oklch(0.18 0.01 250);
+  --muted: oklch(0.94 0.006 90);
+  --muted-foreground: oklch(0.42 0.01 250);
+  --accent: oklch(0.55 0.17 55);
+  --accent-foreground: oklch(0.98 0.004 90);
+  --border: oklch(0.18 0.01 250 / 10%);
+  --input: oklch(0.18 0.01 250 / 8%);
+  --ring: oklch(0.55 0.17 55);
+  --glass-border: 1px solid oklch(0.18 0.01 250 / 8%);
+  --glass-bg: oklch(1 0 0 / 70%);
+}
+
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }
