@@ -1,4 +1,4 @@
-import { GraduationCap, BadgeCheck } from "lucide-react";
+import { GraduationCap, CheckCircle2 } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./Section";
 
@@ -6,26 +6,17 @@ const items = [
   {
     degree: "Honors — Political Science",
     year: "2024",
-    institution: "Dhaka University",
-    board: null,
-    result: "CGPA 2.83",
-    verified: false,
+    institute: "Dhaka University",
   },
   {
     degree: "H.S.C — Humanities",
     year: "2019",
-    institution: "Gazipur Cantonment College",
-    board: "Dhaka",
-    result: "GPA 4.92",
-    verified: true,
+    institute: "Gazipur Cantonment College",
   },
   {
     degree: "S.S.C — Business Studies",
     year: "2017",
-    institution: "Kamarjuri Yousuf Ali High School",
-    board: "Dhaka",
-    result: "GPA 4.00",
-    verified: true,
+    institute: "KamarJuri Yousuf Ali High School",
   },
 ];
 
@@ -46,14 +37,13 @@ export function Education() {
                   <div className="w-10 h-10 rounded-xl bg-foreground text-background grid place-items-center">
                     <GraduationCap className="w-4 h-4" />
                   </div>
-                  {it.verified && (
-                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs text-accent bg-accent/10 border border-accent/20 px-2 py-1 rounded-full">
-                      <BadgeCheck className="w-3 h-3" /> Verified
-                    </span>
-                  )}
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs text-accent bg-accent/10 border border-accent/20 px-2 py-1 rounded-full">
+                    <CheckCircle2 className="w-3 h-3" /> Completed
+                  </span>
                 </div>
                 <h3 className="font-display text-lg mb-1 leading-snug">{it.degree}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-4">Passing year: {it.year}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-1">Passing year: {it.year}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground/80">Institute: {it.institute}</p>
               </div>
             </Reveal>
           ))}
@@ -62,3 +52,4 @@ export function Education() {
     </section>
   );
 }
+
