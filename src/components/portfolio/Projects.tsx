@@ -7,17 +7,13 @@ import p3 from "@/assets/project-3.jpg";
 import p4 from "@/assets/project-4.jpg";
 import p5 from "@/assets/project-5.jpg";
 import p6 from "@/assets/project-6.jpg";
+import { store, useStore } from "@/lib/portfolio-store";
 
-const projects = [
-  { img: p1, title: "Tour Booking Platform", tag: "Travel", desc: "End-to-end tour and travel booking system.", url: "https://tour.betabig.com/" },
-  { img: p2, title: "MediBook", tag: "Healthcare", desc: "Doctor appointment and clinic management app.", url: "https://medibook.betabig.com/" },
-  { img: p3, title: "Payroll System", tag: "HR / SaaS", desc: "Employee payroll, salary and attendance manager.", url: "https://payroll.betabig.com/" },
-  { img: p4, title: "Farm Management", tag: "AgriTech", desc: "Livestock, inventory and operations dashboard.", url: "https://farm.betabig.com/" },
-  { img: p5, title: "Toolify", tag: "SaaS Tools", desc: "All-in-one productivity toolkit for teams.", url: "https://toolify.betabig.com/" },
-  { img: p6, title: "Food Order", tag: "Ecommerce", desc: "Restaurant ordering and delivery platform.", url: "https://foodorder.betabig.com/" },
-];
+const fallbackImgs = [p1, p2, p3, p4, p5, p6];
 
 export function Projects() {
+  const projects = useStore(store.getProjects);
+
   return (
     <section id="projects" className="relative py-16">
       <div className="container mx-auto px-6">
@@ -29,14 +25,12 @@ export function Projects() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {projects.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.05}>
+            <Reveal key={p.id} delay={i * 0.05}>
               <a href={p.url} target="_blank" rel="noopener noreferrer" className="group relative rounded-2xl overflow-hidden glass hover-lift h-full block">
                 <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                   <img
-                    src={p.img}
+                    src={p.img || fallbackImgs[i % fallbackImgs.length]}
                     alt={p.title}
-                    width={1024}
-                    height={768}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -61,4 +55,3 @@ export function Projects() {
     </section>
   );
 }
-
