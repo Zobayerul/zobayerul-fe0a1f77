@@ -176,6 +176,6 @@
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: oklch(0.14 0.008 250); }
-::-webkit-scrollbar-thumb { background: oklch(0.96 0.005 250 / 15%); border-radius: 10px; }
+::-webkit-scrollbar-track { background: var(--scroll-track); }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: oklch(0.78 0.16 65 / 60%); }
