@@ -102,6 +102,9 @@
   --ring: oklch(0.55 0.17 55);
   --glass-border: 1px solid oklch(0.18 0.01 250 / 8%);
   --glass-bg: oklch(1 0 0 / 70%);
+  --glass-bg-strong: oklch(1 0 0 / 92%);
+  --scroll-track: oklch(0.94 0.006 90);
+  --scroll-thumb: oklch(0.18 0.01 250 / 20%);
 }
 
 @layer base {
