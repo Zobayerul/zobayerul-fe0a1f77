@@ -75,6 +75,9 @@
 
   --glass-border: 1px solid oklch(0.96 0.005 250 / 10%);
   --glass-bg: oklch(0.18 0.01 250 / 60%);
+  --glass-bg-strong: oklch(0.18 0.01 250 / 85%);
+  --scroll-track: oklch(0.14 0.008 250);
+  --scroll-thumb: oklch(0.96 0.005 250 / 15%);
 }
 
 .light {
