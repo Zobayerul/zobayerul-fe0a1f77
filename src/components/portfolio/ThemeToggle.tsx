@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle() {
-  const [light, setLight] = useState(false);
+  const [light, setLight] = useState(true);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
-    const isLight = saved === "light";
+    const isLight = saved ? saved === "light" : true;
     setLight(isLight);
     document.documentElement.classList.toggle("light", isLight);
   }, []);
