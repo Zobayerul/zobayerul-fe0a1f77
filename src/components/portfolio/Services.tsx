@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./Section";
+import { T, useText } from "@/lib/portfolio-store";
 
 const services = [
   { icon: Globe, title: "Web Design & Development", text: "Pixel-perfect, performant websites with conversion-focused UX." },
@@ -23,9 +24,9 @@ export function Services() {
       <div className="absolute inset-0 -z-10 bg-grid opacity-20" />
       <div className="container mx-auto px-6">
         <SectionHeader
-          eyebrow="Services"
-          title={<>Full-stack solutions for <span className="text-gradient">modern businesses</span></>}
-          description="From idea to launch — production-grade development across web, mobile, and enterprise software."
+          eyebrow={useText("services.eyebrow")}
+          title={<><T id="services.title.a" /> <span className="text-gradient"><T id="services.title.b" /></span></>}
+          description={useText("services.desc")}
         />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">

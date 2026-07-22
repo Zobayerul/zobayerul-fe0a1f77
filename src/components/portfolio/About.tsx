@@ -1,6 +1,7 @@
 import { CheckCircle2, Code2, Rocket, ShieldCheck } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./Section";
+import { T, useText } from "@/lib/portfolio-store";
 
 const skills = [
   "React / Next.js",
@@ -16,10 +17,10 @@ export function About() {
     <section id="about" className="relative py-14 sm:py-16">
       <div className="container mx-auto px-5 sm:px-6">
         <SectionHeader
-          eyebrow="About"
+          eyebrow={useText("about.eyebrow")}
           title={
             <>
-              A developer who treats your product <span className="text-gradient">like his own</span>
+              <T id="about.title.a" /> <span className="text-gradient"><T id="about.title.b" /></span>
             </>
           }
         />
@@ -27,16 +28,8 @@ export function About() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <Reveal>
             <div className="space-y-5 text-muted-foreground text-base sm:text-lg leading-relaxed">
-              <p>
-                Hi, I'm <span className="text-foreground font-semibold">Zobayerul Islam</span>.
-                For the last five years I've helped founders, agencies and growing teams turn
-                rough ideas into polished web and ecommerce products people actually love using.
-              </p>
-              <p>
-                From quiet marketing sites to busy multi-vendor stores, I focus on the details that
-                move the needle — <span className="text-foreground">clean code, fast load times,
-                thoughtful UX</span>, and design that builds trust on every screen.
-              </p>
+              <p><T id="about.p1" /></p>
+              <p><T id="about.p2" /></p>
 
               <div className="grid sm:grid-cols-2 gap-2.5 pt-3">
                 {skills.map((s) => (

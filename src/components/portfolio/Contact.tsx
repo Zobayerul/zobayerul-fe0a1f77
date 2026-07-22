@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Phone, MessageCircle, Mail, MapPin, Send } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./Section";
+import { T, useText } from "@/lib/portfolio-store";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -13,9 +14,9 @@ export function Contact() {
       </div>
       <div className="container mx-auto px-6">
         <SectionHeader
-          eyebrow="Get In Touch"
-          title={<>Let's build something <span className="text-gradient">remarkable</span></>}
-          description="Have a project in mind? Send a message or reach out on WhatsApp — I usually reply within a few hours."
+          eyebrow={useText("contact.eyebrow")}
+          title={<><T id="contact.title.a" /> <span className="text-gradient"><T id="contact.title.b" /></span></>}
+          description={useText("contact.desc")}
         />
 
         <div className="grid lg:grid-cols-[1fr_1.3fr] gap-8 max-w-6xl mx-auto">
@@ -32,7 +33,7 @@ export function Contact() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">WhatsApp</div>
-                  <div className="font-semibold">+880 1968 634181</div>
+                  <div className="font-semibold"><T id="contact.whatsapp" /></div>
                 </div>
               </a>
 
@@ -42,7 +43,7 @@ export function Contact() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">Phone</div>
-                  <div className="font-semibold">01968634181</div>
+                  <div className="font-semibold"><T id="contact.phone" /></div>
                 </div>
               </a>
 
@@ -52,7 +53,7 @@ export function Contact() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">Email</div>
-                  <div className="font-semibold">support@zobayerul.com</div>
+                  <div className="font-semibold"><T id="contact.email" /></div>
                 </div>
               </a>
 
@@ -62,7 +63,7 @@ export function Contact() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">Location</div>
-                  <div className="font-semibold">Bangladesh — Worldwide</div>
+                  <div className="font-semibold"><T id="contact.location" /></div>
                 </div>
               </div>
 
@@ -72,7 +73,7 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="block text-center mt-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold shadow-[0_0_30px_oklch(0.75_0.15_150/0.5)] hover:shadow-[0_0_50px_oklch(0.75_0.15_150/0.7)] transition-all"
               >
-                Chat on WhatsApp
+                <T id="contact.cta.chat" />
               </a>
             </div>
           </Reveal>
