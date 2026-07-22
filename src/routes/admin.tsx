@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { store, useStore, type Project, type Testimonial } from "@/lib/portfolio-store";
-import { LogOut, Plus, Trash2, Save } from "lucide-react";
+import { store, useStore, defaultTexts, type Project, type Testimonial } from "@/lib/portfolio-store";
+import { LogOut, Plus, Trash2, Save, RotateCcw } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -42,7 +42,7 @@ function Login() {
 function Dashboard() {
   const projects = useStore(store.getProjects);
   const testimonials = useStore(store.getTestimonials);
-  const [tab, setTab] = useState<"projects" | "testimonials">("projects");
+  const [tab, setTab] = useState<"projects" | "testimonials" | "texts">("texts");
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
@@ -54,12 +54,68 @@ function Dashboard() {
         </div>
       </header>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
+        <button onClick={() => setTab("texts")} className={`px-4 py-2 rounded-full text-sm ${tab === "texts" ? "bg-primary text-primary-foreground" : "glass"}`}>Site Text</button>
         <button onClick={() => setTab("projects")} className={`px-4 py-2 rounded-full text-sm ${tab === "projects" ? "bg-primary text-primary-foreground" : "glass"}`}>Projects ({projects.length})</button>
         <button onClick={() => setTab("testimonials")} className={`px-4 py-2 rounded-full text-sm ${tab === "testimonials" ? "bg-primary text-primary-foreground" : "glass"}`}>Testimonials ({testimonials.length})</button>
       </div>
 
-      {tab === "projects" ? <ProjectsPanel items={projects} /> : <TestimonialsPanel items={testimonials} />}
+      {tab === "projects" && <ProjectsPanel items={projects} />}
+      {tab === "testimonials" && <TestimonialsPanel items={testimonials} />}
+      {tab === "texts" && <TextsPanel />}
+    </div>
+  );
+}
+
+function TextsPanel() {
+  const texts = useStore(store.getTexts);
+  const groups: Record<string, string[]> = {};
+  Object.keys(defaultTexts).forEach((k) => {
+    const g = k.split(".")[0];
+    (groups[g] ||= []).push(k);
+  });
+  const update = (key: string, v: string) => store.setTexts({ ...texts, [key]: v });
+  const reset = (key: string) => {
+    const next = { ...texts };
+    delete next[key];
+    store.setTexts(next);
+  };
+  const resetAll = () => { if (confirm("Reset all text to defaults?")) store.setTexts({}); };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <p className="text-sm text-muted-foreground">Edit any text on your website. Changes save automatically and appear live.</p>
+        <button onClick={resetAll} className="px-4 py-2 rounded-full glass text-sm inline-flex items-center gap-2"><RotateCcw className="w-4 h-4" />Reset all</button>
+      </div>
+      {Object.entries(groups).map(([group, keys]) => (
+        <div key={group} className="glass rounded-2xl p-5 sm:p-6 space-y-4">
+          <h3 className="font-display text-xl capitalize">{group}</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            {keys.map((k) => {
+              const val = texts[k] ?? defaultTexts[k];
+              const overridden = texts[k] !== undefined && texts[k] !== defaultTexts[k];
+              const long = (defaultTexts[k] || "").length > 60;
+              return (
+                <div key={k}>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs text-muted-foreground font-mono">{k}</label>
+                    {overridden && (
+                      <button onClick={() => reset(k)} className="text-[10px] text-accent inline-flex items-center gap-1"><RotateCcw className="w-3 h-3" />reset</button>
+                    )}
+                  </div>
+                  {long ? (
+                    <textarea value={val} onChange={(e) => update(k, e.target.value)} rows={3} className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm" />
+                  ) : (
+                    <input value={val} onChange={(e) => update(k, e.target.value)} className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm" />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+      <div className="text-xs text-muted-foreground inline-flex items-center gap-1"><Save className="w-3 h-3" /> Auto-saved to this browser</div>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import profile from "@/assets/profile.jpg";
+import { T, useText } from "@/lib/portfolio-store";
+
 
 export function Hero() {
   return (
@@ -21,7 +23,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 glass px-3.5 py-1.5 rounded-full text-xs font-medium mb-5 sm:mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="text-muted-foreground tracking-wide uppercase text-[10px] sm:text-xs">Available for new work</span>
+            <span className="text-muted-foreground tracking-wide uppercase text-[10px] sm:text-xs"><T id="hero.badge" /></span>
           </motion.div>
 
           <motion.h1
@@ -30,8 +32,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="font-display text-[2.5rem] leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl mb-5 sm:mb-6 tracking-tight"
           >
-            Thoughtful digital products,{" "}
-            <span className="text-gradient">built to grow</span> with your business.
+            <T id="hero.title.a" />{" "}
+            <span className="text-gradient"><T id="hero.title.b" /></span> <T id="hero.title.c" />
           </motion.h1>
 
           <motion.p
@@ -40,8 +42,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8 sm:mb-10 leading-relaxed"
           >
-            I'm Zobayerul — a web developer and ecommerce specialist partnering with
-            founders and teams to ship clean, fast, and conversion-ready experiences.
+            <T id="hero.desc" />
           </motion.p>
 
           <motion.div
@@ -54,14 +55,14 @@ export function Hero() {
               href="#contact"
               className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background font-medium text-sm sm:text-base hover:bg-foreground/90 transition-all"
             >
-              Start a project
+              <T id="hero.cta.primary" />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#projects"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-border bg-card text-foreground font-medium text-sm sm:text-base hover:bg-muted transition-all"
             >
-              View work
+              <T id="hero.cta.secondary" />
             </a>
             <a
               href="https://wa.me/8801968634181"
@@ -71,7 +72,7 @@ export function Hero() {
               aria-label="WhatsApp"
             >
               <MessageCircle className="w-4 h-4 text-accent" />
-              WhatsApp
+              <T id="hero.cta.whatsapp" />
             </a>
           </motion.div>
 
@@ -82,9 +83,9 @@ export function Hero() {
             className="grid grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-14 max-w-md"
           >
             {[
-              { v: "100+", l: "Projects shipped" },
-              { v: "60+", l: "Happy clients" },
-              { v: "5+", l: "Years building" },
+              { v: useText("hero.stat1.v"), l: useText("hero.stat1.l") },
+              { v: useText("hero.stat2.v"), l: useText("hero.stat2.l") },
+              { v: useText("hero.stat3.v"), l: useText("hero.stat3.l") },
             ].map((s) => (
               <div key={s.l}>
                 <div className="font-display text-3xl sm:text-4xl text-foreground">{s.v}</div>
@@ -115,11 +116,11 @@ export function Hero() {
             </div>
             <div className="absolute -top-3 -left-3 glass-strong rounded-full px-3.5 py-2 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-medium">Available</span>
+              <span className="text-xs font-medium"><T id="hero.badge.available" /></span>
             </div>
             <div className="absolute -bottom-3 -right-3 glass-strong rounded-2xl px-4 py-2.5">
-              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Web · Ecommerce</div>
-              <div className="text-sm font-semibold font-display italic text-accent">Developer</div>
+              <div className="text-[10px] uppercase tracking-wider text-muted-foreground"><T id="hero.tag.eyebrow" /></div>
+              <div className="text-sm font-semibold font-display italic text-accent"><T id="hero.tag.role" /></div>
             </div>
           </div>
         </motion.div>

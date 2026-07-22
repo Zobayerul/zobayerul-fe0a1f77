@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import profile from "@/assets/profile.jpg";
+import { T } from "@/lib/portfolio-store";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -56,7 +57,7 @@ export function Navbar() {
             href="#contact"
             className="hidden lg:inline-flex items-center px-5 py-2 rounded-full bg-foreground text-background font-medium text-sm hover:bg-foreground/90 transition-all"
           >
-            Let's talk
+            <T id="nav.cta" />
           </a>
 
           <button
@@ -87,7 +88,7 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className="text-center mt-2 px-5 py-2.5 rounded-full bg-foreground text-background font-medium"
               >
-                Let's talk
+                <T id="nav.cta" />
               </a>
             </ul>
           </div>

@@ -1,4 +1,5 @@
 import { Facebook, Github, Linkedin, Twitter, Instagram } from "lucide-react";
+import { T } from "@/lib/portfolio-store";
 
 export function Footer() {
   return (
@@ -13,8 +14,7 @@ export function Footer() {
               <span>Zobayerul <span className="italic text-accent">Islam</span></span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Independent web developer & ecommerce specialist, partnering with
-              ambitious brands worldwide to ship products that perform.
+              <T id="footer.tagline" />
             </p>
             <div className="flex gap-2 mt-5">
               {[Facebook, Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
@@ -72,7 +72,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border pt-6 text-center text-xs sm:text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Zobayerul Islam. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} <T id="footer.copyright" /></p>
         </div>
       </div>
     </footer>
