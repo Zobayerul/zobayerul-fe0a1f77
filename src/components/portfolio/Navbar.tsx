@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import profile from "@/assets/profile.jpg";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -33,9 +34,7 @@ export function Navbar() {
           }`}
         >
           <a href="#home" className="flex items-center gap-2 font-display text-lg sm:text-xl">
-            <span className="grid place-items-center w-8 h-8 rounded-full bg-foreground text-background text-xs font-sans font-bold">
-              ZI
-            </span>
+            <img src={profile} alt="Zobayerul Islam" className="w-8 h-8 rounded-full object-cover border border-border" />
             <span className="tracking-tight">Zobayerul <span className="italic text-accent">Islam</span></span>
           </a>
 
