@@ -69,9 +69,11 @@ export const defaultTexts: Record<string, string> = {
   "footer.copyright": "Zobayerul Islam. All rights reserved.",
 };
 
+export const defaultEducationEyebrow = "Education";
+
 // In-memory cache, hydrated from Supabase on load.
-type Cache = { projects: Project[]; testimonials: Testimonial[]; texts: Record<string, string> };
-const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, texts: {} };
+type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string> };
+const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, education: defaultEducation, texts: {} };
 let loaded = false;
 
 const emit = () => { if (typeof window !== "undefined") window.dispatchEvent(new Event("portfolio-store")); };
@@ -82,6 +84,7 @@ async function loadAll() {
     for (const row of data) {
       if (row.key === "projects" && Array.isArray(row.value)) cache.projects = row.value as Project[];
       else if (row.key === "testimonials" && Array.isArray(row.value)) cache.testimonials = row.value as Testimonial[];
+      else if (row.key === "education" && Array.isArray(row.value)) cache.education = row.value as Education[];
       else if (row.key === "texts" && row.value && typeof row.value === "object") cache.texts = row.value as Record<string, string>;
     }
   }
@@ -89,7 +92,7 @@ async function loadAll() {
   emit();
 }
 
-async function saveKey(key: "projects" | "testimonials" | "texts", value: unknown) {
+async function saveKey(key: "projects" | "testimonials" | "education" | "texts", value: unknown) {
   await supabase.from("site_content").upsert({ key, value: value as never, updated_at: new Date().toISOString() });
 }
 
@@ -103,6 +106,7 @@ if (typeof window !== "undefined") {
       if (!row) return;
       if (row.key === "projects") cache.projects = (row.value as Project[]) ?? defaultProjects;
       else if (row.key === "testimonials") cache.testimonials = (row.value as Testimonial[]) ?? defaultTestimonials;
+      else if (row.key === "education") cache.education = (row.value as Education[]) ?? defaultEducation;
       else if (row.key === "texts") cache.texts = (row.value as Record<string, string>) ?? {};
       emit();
     })
