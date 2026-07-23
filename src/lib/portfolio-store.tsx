@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type Project = { id: string; img: string; title: string; tag: string; desc: string; url: string };
 export type Testimonial = { id: string; name: string; role: string; text: string };
+export type Education = { id: string; degree: string; year: string; institute: string; status: string };
 
 const AK = "portfolio.admin";
 
@@ -19,6 +20,12 @@ export const defaultTestimonials: Testimonial[] = [
   { id: "1", name: "Rifat Ahmed", role: "Founder, Lumen Store", text: "Zobayerul delivered our ecommerce platform ahead of schedule and exceeded every expectation. Sales grew 3x in the first quarter." },
   { id: "2", name: "Sarah Khan", role: "CEO, EduStream", text: "From design to deployment, the entire process was smooth. The LMS he built powers thousands of students every day." },
   { id: "3", name: "Daniel Carter", role: "Product Lead, PulseCRM", text: "Best developer we've worked with. Clean code, smart architecture, and genuinely cares about the product outcomes." },
+];
+
+export const defaultEducation: Education[] = [
+  { id: "1", degree: "Honors — Political Science", year: "2024", institute: "Dhaka University", status: "Completed" },
+  { id: "2", degree: "H.S.C — Humanities", year: "2019", institute: "Gazipur Cantonment College", status: "Completed" },
+  { id: "3", degree: "S.S.C — Business Studies", year: "2017", institute: "KamarJuri Yousuf Ali High School", status: "Completed" },
 ];
 
 export const defaultTexts: Record<string, string> = {
@@ -62,9 +69,11 @@ export const defaultTexts: Record<string, string> = {
   "footer.copyright": "Zobayerul Islam. All rights reserved.",
 };
 
+export const defaultEducationEyebrow = "Education";
+
 // In-memory cache, hydrated from Supabase on load.
-type Cache = { projects: Project[]; testimonials: Testimonial[]; texts: Record<string, string> };
-const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, texts: {} };
+type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string> };
+const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, education: defaultEducation, texts: {} };
 let loaded = false;
 
 const emit = () => { if (typeof window !== "undefined") window.dispatchEvent(new Event("portfolio-store")); };
@@ -75,6 +84,7 @@ async function loadAll() {
     for (const row of data) {
       if (row.key === "projects" && Array.isArray(row.value)) cache.projects = row.value as Project[];
       else if (row.key === "testimonials" && Array.isArray(row.value)) cache.testimonials = row.value as Testimonial[];
+      else if (row.key === "education" && Array.isArray(row.value)) cache.education = row.value as Education[];
       else if (row.key === "texts" && row.value && typeof row.value === "object") cache.texts = row.value as Record<string, string>;
     }
   }
@@ -82,7 +92,7 @@ async function loadAll() {
   emit();
 }
 
-async function saveKey(key: "projects" | "testimonials" | "texts", value: unknown) {
+async function saveKey(key: "projects" | "testimonials" | "education" | "texts", value: unknown) {
   await supabase.from("site_content").upsert({ key, value: value as never, updated_at: new Date().toISOString() });
 }
 
@@ -96,6 +106,7 @@ if (typeof window !== "undefined") {
       if (!row) return;
       if (row.key === "projects") cache.projects = (row.value as Project[]) ?? defaultProjects;
       else if (row.key === "testimonials") cache.testimonials = (row.value as Testimonial[]) ?? defaultTestimonials;
+      else if (row.key === "education") cache.education = (row.value as Education[]) ?? defaultEducation;
       else if (row.key === "texts") cache.texts = (row.value as Record<string, string>) ?? {};
       emit();
     })
@@ -118,6 +129,8 @@ export const store = {
   setProjects: (v: Project[]) => { cache.projects = v; emit(); saveKey("projects", v); },
   getTestimonials: () => cache.testimonials,
   setTestimonials: (v: Testimonial[]) => { cache.testimonials = v; emit(); saveKey("testimonials", v); },
+  getEducation: () => cache.education,
+  setEducation: (v: Education[]) => { cache.education = v; emit(); saveKey("education", v); },
   getTexts: () => cache.texts,
   setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
   isLoggedIn: () => readLocal<boolean>(AK, false),

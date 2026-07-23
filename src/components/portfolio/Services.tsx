@@ -20,7 +20,7 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" className="relative py-16">
+    <section id="services" className="relative py-10">
       <div className="absolute inset-0 -z-10 bg-grid opacity-20" />
       <div className="container mx-auto px-6">
         <SectionHeader

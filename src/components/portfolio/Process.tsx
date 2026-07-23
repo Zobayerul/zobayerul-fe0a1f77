@@ -13,7 +13,7 @@ const steps = [
 
 export function Process() {
   return (
-    <section id="process" className="relative py-16">
+    <section id="process" className="relative py-10">
       <div className="container mx-auto px-6">
         <SectionHeader
           eyebrow="Work Process"

@@ -13,7 +13,7 @@ export function Testimonials() {
   const go = (dir: number) => setPage((p) => (p + dir + pages) % pages);
 
   return (
-    <section className="relative py-16">
+    <section className="relative py-10">
       <div className="container mx-auto px-6">
         <SectionHeader
           eyebrow="Testimonials"
