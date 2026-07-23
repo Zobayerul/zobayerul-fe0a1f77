@@ -22,6 +22,12 @@ export const defaultTestimonials: Testimonial[] = [
   { id: "3", name: "Daniel Carter", role: "Product Lead, PulseCRM", text: "Best developer we've worked with. Clean code, smart architecture, and genuinely cares about the product outcomes." },
 ];
 
+export const defaultEducation: Education[] = [
+  { id: "1", degree: "Honors — Political Science", year: "2024", institute: "Dhaka University", status: "Completed" },
+  { id: "2", degree: "H.S.C — Humanities", year: "2019", institute: "Gazipur Cantonment College", status: "Completed" },
+  { id: "3", degree: "S.S.C — Business Studies", year: "2017", institute: "KamarJuri Yousuf Ali High School", status: "Completed" },
+];
+
 export const defaultTexts: Record<string, string> = {
   "hero.badge": "Available for new work",
   "hero.title.a": "Thoughtful digital products,",
