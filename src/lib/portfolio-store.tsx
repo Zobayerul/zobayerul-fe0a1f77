@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type Project = { id: string; img: string; title: string; tag: string; desc: string; url: string };
 export type Testimonial = { id: string; name: string; role: string; text: string };
+export type Education = { id: string; degree: string; year: string; institute: string; status: string };
 
 const AK = "portfolio.admin";
 
