@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { store, useStore, defaultTexts, type Project, type Testimonial } from "@/lib/portfolio-store";
+import { store, useStore, defaultTexts, type Project, type Testimonial, type Education } from "@/lib/portfolio-store";
 import { LogOut, Plus, Trash2, Save, RotateCcw } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
@@ -42,7 +42,8 @@ function Login() {
 function Dashboard() {
   const projects = useStore(store.getProjects);
   const testimonials = useStore(store.getTestimonials);
-  const [tab, setTab] = useState<"projects" | "testimonials" | "texts">("texts");
+  const education = useStore(store.getEducation);
+  const [tab, setTab] = useState<"projects" | "testimonials" | "education" | "texts">("texts");
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
@@ -58,11 +59,42 @@ function Dashboard() {
         <button onClick={() => setTab("texts")} className={`px-4 py-2 rounded-full text-sm ${tab === "texts" ? "bg-primary text-primary-foreground" : "glass"}`}>Site Text</button>
         <button onClick={() => setTab("projects")} className={`px-4 py-2 rounded-full text-sm ${tab === "projects" ? "bg-primary text-primary-foreground" : "glass"}`}>Projects ({projects.length})</button>
         <button onClick={() => setTab("testimonials")} className={`px-4 py-2 rounded-full text-sm ${tab === "testimonials" ? "bg-primary text-primary-foreground" : "glass"}`}>Testimonials ({testimonials.length})</button>
+        <button onClick={() => setTab("education")} className={`px-4 py-2 rounded-full text-sm ${tab === "education" ? "bg-primary text-primary-foreground" : "glass"}`}>Education ({education.length})</button>
       </div>
 
       {tab === "projects" && <ProjectsPanel items={projects} />}
       {tab === "testimonials" && <TestimonialsPanel items={testimonials} />}
+      {tab === "education" && <EducationPanel items={education} />}
       {tab === "texts" && <TextsPanel />}
+    </div>
+  );
+}
+
+function EducationPanel({ items }: { items: Education[] }) {
+  const update = (id: string, patch: Partial<Education>) =>
+    store.setEducation(items.map((e) => (e.id === id ? { ...e, ...patch } : e)));
+  const remove = (id: string) => store.setEducation(items.filter((e) => e.id !== id));
+  const add = () =>
+    store.setEducation([...items, { id: crypto.randomUUID(), degree: "New Degree", year: "2025", institute: "Institute name", status: "Completed" }]);
+
+  return (
+    <div className="space-y-4">
+      <button onClick={add} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Plus className="w-4 h-4" />Add education</button>
+      <div className="grid md:grid-cols-2 gap-4">
+        {items.map((e) => (
+          <div key={e.id} className="glass rounded-2xl p-5 space-y-3">
+            <div className="flex items-start justify-between gap-2">
+              <div className="text-xs text-muted-foreground">Education</div>
+              <button onClick={() => remove(e.id)} className="text-destructive"><Trash2 className="w-4 h-4" /></button>
+            </div>
+            <Field label="Degree" value={e.degree} onChange={(v) => update(e.id, { degree: v })} />
+            <Field label="Passing year" value={e.year} onChange={(v) => update(e.id, { year: v })} />
+            <Field label="Institute" value={e.institute} onChange={(v) => update(e.id, { institute: v })} />
+            <Field label="Status" value={e.status} onChange={(v) => update(e.id, { status: v })} placeholder="Completed / Running" />
+            <div className="text-xs text-muted-foreground inline-flex items-center gap-1"><Save className="w-3 h-3" /> Auto-saved</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
