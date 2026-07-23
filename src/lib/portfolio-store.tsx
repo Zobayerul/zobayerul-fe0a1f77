@@ -129,6 +129,8 @@ export const store = {
   setProjects: (v: Project[]) => { cache.projects = v; emit(); saveKey("projects", v); },
   getTestimonials: () => cache.testimonials,
   setTestimonials: (v: Testimonial[]) => { cache.testimonials = v; emit(); saveKey("testimonials", v); },
+  getEducation: () => cache.education,
+  setEducation: (v: Education[]) => { cache.education = v; emit(); saveKey("education", v); },
   getTexts: () => cache.texts,
   setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
   isLoggedIn: () => readLocal<boolean>(AK, false),
