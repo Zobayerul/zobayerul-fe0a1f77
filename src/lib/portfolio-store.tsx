@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export type Project = { id: string; img: string; title: string; tag: string; desc: string; url: string };
 export type Testimonial = { id: string; name: string; role: string; text: string };
 
-const PK = "portfolio.projects";
-const TK = "portfolio.testimonials";
 const AK = "portfolio.admin";
-const XK = "portfolio.texts";
 
 export const defaultProjects: Project[] = [
   { id: "1", img: "", title: "Tour Booking Platform", tag: "Travel", desc: "End-to-end tour and travel booking system.", url: "https://tour.betabig.com/" },
@@ -23,9 +21,7 @@ export const defaultTestimonials: Testimonial[] = [
   { id: "3", name: "Daniel Carter", role: "Product Lead, PulseCRM", text: "Best developer we've worked with. Clean code, smart architecture, and genuinely cares about the product outcomes." },
 ];
 
-// Editable site text — keys grouped so the admin panel can show sections.
 export const defaultTexts: Record<string, string> = {
-  // Hero
   "hero.badge": "Available for new work",
   "hero.title.a": "Thoughtful digital products,",
   "hero.title.b": "built to grow",
@@ -43,20 +39,16 @@ export const defaultTexts: Record<string, string> = {
   "hero.stat2.l": "Happy clients",
   "hero.stat3.v": "5+",
   "hero.stat3.l": "Years building",
-  // Navbar
   "nav.cta": "Let's talk",
-  // About
   "about.eyebrow": "About",
   "about.title.a": "A developer who treats your product",
   "about.title.b": "like his own",
   "about.p1": "Hi, I'm Zobayerul Islam. For the last five years I've helped founders, agencies and growing teams turn rough ideas into polished web and ecommerce products people actually love using.",
   "about.p2": "From quiet marketing sites to busy multi-vendor stores, I focus on the details that move the needle — clean code, fast load times, thoughtful UX, and design that builds trust on every screen.",
-  // Services
   "services.eyebrow": "Services",
   "services.title.a": "Full-stack solutions for",
   "services.title.b": "modern businesses",
   "services.desc": "From idea to launch — production-grade development across web, mobile, and enterprise software.",
-  // Contact
   "contact.eyebrow": "Get In Touch",
   "contact.title.a": "Let's build something",
   "contact.title.b": "remarkable",
@@ -66,34 +58,74 @@ export const defaultTexts: Record<string, string> = {
   "contact.email": "support@zobayerul.com",
   "contact.location": "Bangladesh — Worldwide",
   "contact.cta.chat": "Chat on WhatsApp",
-  // Footer
   "footer.tagline": "Independent web developer & ecommerce specialist, partnering with ambitious brands worldwide to ship products that perform.",
   "footer.copyright": "Zobayerul Islam. All rights reserved.",
 };
 
-function read<T>(k: string, fallback: T): T {
+// In-memory cache, hydrated from Supabase on load.
+type Cache = { projects: Project[]; testimonials: Testimonial[]; texts: Record<string, string> };
+const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, texts: {} };
+let loaded = false;
+
+const emit = () => { if (typeof window !== "undefined") window.dispatchEvent(new Event("portfolio-store")); };
+
+async function loadAll() {
+  const { data } = await supabase.from("site_content").select("key,value");
+  if (data) {
+    for (const row of data) {
+      if (row.key === "projects" && Array.isArray(row.value)) cache.projects = row.value as Project[];
+      else if (row.key === "testimonials" && Array.isArray(row.value)) cache.testimonials = row.value as Testimonial[];
+      else if (row.key === "texts" && row.value && typeof row.value === "object") cache.texts = row.value as Record<string, string>;
+    }
+  }
+  loaded = true;
+  emit();
+}
+
+async function saveKey(key: "projects" | "testimonials" | "texts", value: unknown) {
+  await supabase.from("site_content").upsert({ key, value: value as never, updated_at: new Date().toISOString() });
+}
+
+if (typeof window !== "undefined") {
+  loadAll();
+  // Realtime cross-browser sync
+  supabase
+    .channel("site_content_changes")
+    .on("postgres_changes", { event: "*", schema: "public", table: "site_content" }, (payload) => {
+      const row = (payload.new ?? payload.old) as { key: string; value: unknown } | null;
+      if (!row) return;
+      if (row.key === "projects") cache.projects = (row.value as Project[]) ?? defaultProjects;
+      else if (row.key === "testimonials") cache.testimonials = (row.value as Testimonial[]) ?? defaultTestimonials;
+      else if (row.key === "texts") cache.texts = (row.value as Record<string, string>) ?? {};
+      emit();
+    })
+    .subscribe();
+}
+
+function readLocal<T>(k: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try { const v = localStorage.getItem(k); return v ? (JSON.parse(v) as T) : fallback; } catch { return fallback; }
 }
-function write(k: string, v: unknown) {
+function writeLocal(k: string, v: unknown) {
   if (typeof window === "undefined") return;
   localStorage.setItem(k, JSON.stringify(v));
-  window.dispatchEvent(new Event("portfolio-store"));
+  emit();
 }
 
 export const store = {
-  getProjects: () => read<Project[]>(PK, defaultProjects),
-  setProjects: (v: Project[]) => write(PK, v),
-  getTestimonials: () => read<Testimonial[]>(TK, defaultTestimonials),
-  setTestimonials: (v: Testimonial[]) => write(TK, v),
-  getTexts: () => read<Record<string, string>>(XK, {}),
-  setTexts: (v: Record<string, string>) => write(XK, v),
-  isLoggedIn: () => read<boolean>(AK, false),
+  isLoaded: () => loaded,
+  getProjects: () => cache.projects,
+  setProjects: (v: Project[]) => { cache.projects = v; emit(); saveKey("projects", v); },
+  getTestimonials: () => cache.testimonials,
+  setTestimonials: (v: Testimonial[]) => { cache.testimonials = v; emit(); saveKey("testimonials", v); },
+  getTexts: () => cache.texts,
+  setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
+  isLoggedIn: () => readLocal<boolean>(AK, false),
   login: (u: string, p: string) => {
-    if (u === "Shishir" && p === "#Zobayerul192030") { write(AK, true); return true; }
+    if (u === "Shishir" && p === "#Zobayerul192030") { writeLocal(AK, true); return true; }
     return false;
   },
-  logout: () => write(AK, false),
+  logout: () => writeLocal(AK, false),
 };
 
 export function useStore<T>(getter: () => T): T {
@@ -102,31 +134,24 @@ export function useStore<T>(getter: () => T): T {
     setV(getter());
     const fn = () => setV(getter());
     window.addEventListener("portfolio-store", fn);
-    window.addEventListener("storage", fn);
-    return () => { window.removeEventListener("portfolio-store", fn); window.removeEventListener("storage", fn); };
+    return () => { window.removeEventListener("portfolio-store", fn); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return v;
 }
 
-// Read one text value (with SSR-safe default) and re-render on updates.
 export function useText(key: string): string {
   const [v, setV] = useState<string>(defaultTexts[key] ?? "");
   useEffect(() => {
-    const get = () => {
-      const overrides = store.getTexts();
-      return overrides[key] ?? defaultTexts[key] ?? "";
-    };
+    const get = () => cache.texts[key] ?? defaultTexts[key] ?? "";
     setV(get());
     const fn = () => setV(get());
     window.addEventListener("portfolio-store", fn);
-    window.addEventListener("storage", fn);
-    return () => { window.removeEventListener("portfolio-store", fn); window.removeEventListener("storage", fn); };
+    return () => { window.removeEventListener("portfolio-store", fn); };
   }, [key]);
   return v;
 }
 
-// Inline editable-text component. Renders the current value for `id`.
 export function T({ id }: { id: string }) {
   const v = useText(id);
   return <>{v}</>;
