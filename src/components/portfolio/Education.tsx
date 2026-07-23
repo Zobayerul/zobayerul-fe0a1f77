@@ -22,7 +22,7 @@ const items = [
 
 export function Education() {
   return (
-    <section id="education" className="relative py-16">
+    <section id="education" className="relative py-10">
       <div className="container mx-auto px-6">
         <SectionHeader
           eyebrow="Education"

@@ -8,7 +8,7 @@ export function Contact() {
   const [sent, setSent] = useState(false);
 
   return (
-    <section id="contact" className="relative py-16">
+    <section id="contact" className="relative py-10">
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl" />
       </div>

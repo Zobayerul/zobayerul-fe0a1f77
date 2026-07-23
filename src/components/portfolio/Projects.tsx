@@ -15,7 +15,7 @@ export function Projects() {
   const projects = useStore(store.getProjects);
 
   return (
-    <section id="projects" className="relative py-16">
+    <section id="projects" className="relative py-10">
       <div className="container mx-auto px-6">
         <SectionHeader
           eyebrow="Portfolio"

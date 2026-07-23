@@ -14,7 +14,7 @@ const skills = [
 
 export function About() {
   return (
-    <section id="about" className="relative py-14 sm:py-16">
+    <section id="about" className="relative py-8 sm:py-10">
       <div className="container mx-auto px-5 sm:px-6">
         <SectionHeader
           eyebrow={useText("about.eyebrow")}
