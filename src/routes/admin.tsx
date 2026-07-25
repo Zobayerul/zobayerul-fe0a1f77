@@ -60,12 +60,14 @@ function Dashboard() {
         <button onClick={() => setTab("projects")} className={`px-4 py-2 rounded-full text-sm ${tab === "projects" ? "bg-primary text-primary-foreground" : "glass"}`}>Projects ({projects.length})</button>
         <button onClick={() => setTab("testimonials")} className={`px-4 py-2 rounded-full text-sm ${tab === "testimonials" ? "bg-primary text-primary-foreground" : "glass"}`}>Testimonials ({testimonials.length})</button>
         <button onClick={() => setTab("education")} className={`px-4 py-2 rounded-full text-sm ${tab === "education" ? "bg-primary text-primary-foreground" : "glass"}`}>Education ({education.length})</button>
+        <button onClick={() => setTab("design")} className={`px-4 py-2 rounded-full text-sm ${tab === "design" ? "bg-primary text-primary-foreground" : "glass"}`}>Design / CSS</button>
       </div>
 
       {tab === "projects" && <ProjectsPanel items={projects} />}
       {tab === "testimonials" && <TestimonialsPanel items={testimonials} />}
       {tab === "education" && <EducationPanel items={education} />}
       {tab === "texts" && <TextsPanel />}
+      {tab === "design" && <DesignPanel />}
     </div>
   );
 }
