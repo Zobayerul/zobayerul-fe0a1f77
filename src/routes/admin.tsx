@@ -226,3 +226,57 @@ function Field({ label, value, onChange, placeholder }: { label: string; value: 
     </div>
   );
 }
+
+function DesignPanel() {
+  const s = useStore(store.getSettings);
+  const setPad = (id: string, k: "t" | "b", v: number) => {
+    const cur = s.spacing?.[id] ?? { t: 40, b: 40 };
+    store.setSettings({ ...s, spacing: { ...s.spacing, [id]: { ...cur, [k]: v } } });
+  };
+  const [css, setCss] = useState(s.css || "");
+
+  return (
+    <div className="space-y-6">
+      <div className="glass rounded-2xl p-5 sm:p-6 space-y-4">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <h3 className="font-display text-xl">Section spacing (px)</h3>
+          <button onClick={() => store.setSettings({ ...s, spacing: {} })} className="px-3 py-1.5 rounded-full glass text-xs inline-flex items-center gap-1"><RotateCcw className="w-3 h-3" />Reset spacing</button>
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {SECTIONS.map((sec) => {
+            const v = s.spacing?.[sec.id];
+            return (
+              <div key={sec.id} className="rounded-xl border border-border p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm font-medium">{sec.label}</div>
+                  {v && <button onClick={() => { const sp = { ...s.spacing }; delete sp[sec.id]; store.setSettings({ ...s, spacing: sp }); }} className="text-[10px] text-accent">reset</button>}
+                </div>
+                {(["t", "b"] as const).map((k) => (
+                  <div key={k}>
+                    <label className="flex justify-between text-xs text-muted-foreground mb-1">
+                      <span>{k === "t" ? "Top padding" : "Bottom padding"}</span>
+                      <span>{v?.[k] ?? 40}px</span>
+                    </label>
+                    <input type="range" min={0} max={160} step={2} value={v?.[k] ?? 40} onChange={(e) => setPad(sec.id, k, Number(e.target.value))} className="w-full" />
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="glass rounded-2xl p-5 sm:p-6 space-y-3">
+        <h3 className="font-display text-xl">Custom CSS</h3>
+        <p className="text-sm text-muted-foreground">Write any CSS here — it applies live on the website.</p>
+        <textarea value={css} onChange={(e) => setCss(e.target.value)} rows={12} spellCheck={false}
+          placeholder={"#about { background: #fafafa; }\n.hero-title { letter-spacing: -1px; }"}
+          className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm font-mono" />
+        <div className="flex gap-2">
+          <button onClick={() => store.setSettings({ ...s, css })} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save CSS</button>
+          <button onClick={() => { setCss(""); store.setSettings({ ...s, css: "" }); }} className="px-4 py-2 rounded-full glass text-sm">Clear</button>
+        </div>
+      </div>
+    </div>
+  );
+}
