@@ -11,7 +11,7 @@ export function Education() {
     <section id="education" className="relative py-10">
       <div className="container mx-auto px-6">
         <SectionHeader
-          eyebrow={<T id="education.eyebrow" />}
+          eyebrow={useText("education.eyebrow")}
           title={<><T id="education.title.a" /> <span className="text-gradient"><T id="education.title.b" /></span></>}
         />
 
