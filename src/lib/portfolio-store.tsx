@@ -153,6 +153,8 @@ export const store = {
   setEducation: (v: Education[]) => { cache.education = v; emit(); saveKey("education", v); },
   getTexts: () => cache.texts,
   setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
+  getSettings: () => cache.settings,
+  setSettings: (v: Settings) => { cache.settings = v; emit(); saveKey("settings", v); },
   isLoggedIn: () => readLocal<boolean>(AK, false),
   login: (u: string, p: string) => {
     if (u === "Shishir" && p === "#Zobayerul192030") { writeLocal(AK, true); return true; }
