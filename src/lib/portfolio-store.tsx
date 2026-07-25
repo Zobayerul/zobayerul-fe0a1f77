@@ -71,9 +71,27 @@ export const defaultTexts: Record<string, string> = {
 
 export const defaultEducationEyebrow = "Education";
 
+export type Spacing = { t: number; b: number };
+export type Settings = { spacing: Record<string, Spacing>; css: string };
+
+export const SECTIONS: { id: string; label: string }[] = [
+  { id: "home", label: "Hero" },
+  { id: "about", label: "About" },
+  { id: "education", label: "Education" },
+  { id: "services", label: "Services" },
+  { id: "why", label: "Why choose me" },
+  { id: "process", label: "Process" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "faq", label: "FAQ" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
+export const defaultSettings: Settings = { spacing: {}, css: "" };
+
 // In-memory cache, hydrated from Supabase on load.
-type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string> };
-const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, education: defaultEducation, texts: {} };
+type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string>; settings: Settings };
+const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, education: defaultEducation, texts: {}, settings: defaultSettings };
 let loaded = false;
 
 const emit = () => { if (typeof window !== "undefined") window.dispatchEvent(new Event("portfolio-store")); };
