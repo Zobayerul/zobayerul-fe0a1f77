@@ -104,13 +104,14 @@ async function loadAll() {
       else if (row.key === "testimonials" && Array.isArray(row.value)) cache.testimonials = row.value as Testimonial[];
       else if (row.key === "education" && Array.isArray(row.value)) cache.education = row.value as Education[];
       else if (row.key === "texts" && row.value && typeof row.value === "object") cache.texts = row.value as Record<string, string>;
+      else if (row.key === "settings" && row.value && typeof row.value === "object") cache.settings = { ...defaultSettings, ...(row.value as Settings) };
     }
   }
   loaded = true;
   emit();
 }
 
-async function saveKey(key: "projects" | "testimonials" | "education" | "texts", value: unknown) {
+async function saveKey(key: "projects" | "testimonials" | "education" | "texts" | "settings", value: unknown) {
   await supabase.from("site_content").upsert({ key, value: value as never, updated_at: new Date().toISOString() });
 }
 
@@ -126,6 +127,7 @@ if (typeof window !== "undefined") {
       else if (row.key === "testimonials") cache.testimonials = (row.value as Testimonial[]) ?? defaultTestimonials;
       else if (row.key === "education") cache.education = (row.value as Education[]) ?? defaultEducation;
       else if (row.key === "texts") cache.texts = (row.value as Record<string, string>) ?? {};
+      else if (row.key === "settings") cache.settings = { ...defaultSettings, ...((row.value as Settings) ?? {}) };
       emit();
     })
     .subscribe();
