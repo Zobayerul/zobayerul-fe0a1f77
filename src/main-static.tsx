@@ -15,12 +15,14 @@ import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { WhatsAppFab } from "@/components/portfolio/WhatsAppFab";
 import { ThemeToggle } from "@/components/portfolio/ThemeToggle";
+import { SiteStyle } from "@/components/portfolio/SiteStyle";
 import { store, useStore, type Project, type Testimonial } from "@/lib/portfolio-store";
 import { LogOut, Plus, Trash2 } from "lucide-react";
 
 function Site() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
+      <SiteStyle />
       <Navbar />
       <main>
         <Hero />
