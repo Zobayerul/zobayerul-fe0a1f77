@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { store, useStore, defaultTexts, type Project, type Testimonial, type Education } from "@/lib/portfolio-store";
+import { store, useStore, defaultTexts, SECTIONS, type Project, type Testimonial, type Education } from "@/lib/portfolio-store";
 import { LogOut, Plus, Trash2, Save, RotateCcw } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
