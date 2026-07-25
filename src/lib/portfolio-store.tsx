@@ -52,6 +52,11 @@ export const defaultTexts: Record<string, string> = {
   "about.title.b": "like his own",
   "about.p1": "Hi, I'm Zobayerul Islam. For the last five years I've helped founders, agencies and growing teams turn rough ideas into polished web and ecommerce products people actually love using.",
   "about.p2": "From quiet marketing sites to busy multi-vendor stores, I focus on the details that move the needle — clean code, fast load times, thoughtful UX, and design that builds trust on every screen.",
+  "education.eyebrow": "Education",
+  "education.title.a": "Academic",
+  "education.title.b": "background",
+  "education.label.year": "Passing year:",
+  "education.label.institute": "Institute:",
   "services.eyebrow": "Services",
   "services.title.a": "Full-stack solutions for",
   "services.title.b": "modern businesses",
@@ -71,9 +76,27 @@ export const defaultTexts: Record<string, string> = {
 
 export const defaultEducationEyebrow = "Education";
 
+export type Spacing = { t: number; b: number };
+export type Settings = { spacing: Record<string, Spacing>; css: string };
+
+export const SECTIONS: { id: string; label: string }[] = [
+  { id: "home", label: "Hero" },
+  { id: "about", label: "About" },
+  { id: "education", label: "Education" },
+  { id: "services", label: "Services" },
+  { id: "why", label: "Why choose me" },
+  { id: "process", label: "Process" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "faq", label: "FAQ" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
+export const defaultSettings: Settings = { spacing: {}, css: "" };
+
 // In-memory cache, hydrated from Supabase on load.
-type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string> };
-const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, education: defaultEducation, texts: {} };
+type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string>; settings: Settings };
+const cache: Cache = { projects: defaultProjects, testimonials: defaultTestimonials, education: defaultEducation, texts: {}, settings: defaultSettings };
 let loaded = false;
 
 const emit = () => { if (typeof window !== "undefined") window.dispatchEvent(new Event("portfolio-store")); };
@@ -86,13 +109,14 @@ async function loadAll() {
       else if (row.key === "testimonials" && Array.isArray(row.value)) cache.testimonials = row.value as Testimonial[];
       else if (row.key === "education" && Array.isArray(row.value)) cache.education = row.value as Education[];
       else if (row.key === "texts" && row.value && typeof row.value === "object") cache.texts = row.value as Record<string, string>;
+      else if (row.key === "settings" && row.value && typeof row.value === "object") cache.settings = { ...defaultSettings, ...(row.value as Settings) };
     }
   }
   loaded = true;
   emit();
 }
 
-async function saveKey(key: "projects" | "testimonials" | "education" | "texts", value: unknown) {
+async function saveKey(key: "projects" | "testimonials" | "education" | "texts" | "settings", value: unknown) {
   await supabase.from("site_content").upsert({ key, value: value as never, updated_at: new Date().toISOString() });
 }
 
@@ -108,6 +132,7 @@ if (typeof window !== "undefined") {
       else if (row.key === "testimonials") cache.testimonials = (row.value as Testimonial[]) ?? defaultTestimonials;
       else if (row.key === "education") cache.education = (row.value as Education[]) ?? defaultEducation;
       else if (row.key === "texts") cache.texts = (row.value as Record<string, string>) ?? {};
+      else if (row.key === "settings") cache.settings = { ...defaultSettings, ...((row.value as Settings) ?? {}) };
       emit();
     })
     .subscribe();
@@ -133,6 +158,8 @@ export const store = {
   setEducation: (v: Education[]) => { cache.education = v; emit(); saveKey("education", v); },
   getTexts: () => cache.texts,
   setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
+  getSettings: () => cache.settings,
+  setSettings: (v: Settings) => { cache.settings = v; emit(); saveKey("settings", v); },
   isLoggedIn: () => readLocal<boolean>(AK, false),
   login: (u: string, p: string) => {
     if (u === "Shishir" && p === "#Zobayerul192030") { writeLocal(AK, true); return true; }

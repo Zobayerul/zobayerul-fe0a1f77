@@ -1,17 +1,20 @@
 import { GraduationCap, CheckCircle2 } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./Section";
-import { store, useStore } from "@/lib/portfolio-store";
+import { store, useStore, useText, T } from "@/lib/portfolio-store";
 
 export function Education() {
   const items = useStore(store.getEducation);
+  const yearLabel = useText("education.label.year");
+  const instLabel = useText("education.label.institute");
   return (
     <section id="education" className="relative py-10">
       <div className="container mx-auto px-6">
         <SectionHeader
-          eyebrow="Education"
-          title={<>Academic <span className="text-gradient">background</span></>}
+          eyebrow={useText("education.eyebrow")}
+          title={<><T id="education.title.a" /> <span className="text-gradient"><T id="education.title.b" /></span></>}
         />
+
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {items.map((it, i) => (
@@ -26,8 +29,8 @@ export function Education() {
                   </span>
                 </div>
                 <h3 className="font-display text-lg mb-1 leading-snug">{it.degree}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-1">Passing year: {it.year}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground/80">Institute: {it.institute}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-1">{yearLabel} {it.year}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground/80">{instLabel} {it.institute}</p>
               </div>
             </Reveal>
           ))}
