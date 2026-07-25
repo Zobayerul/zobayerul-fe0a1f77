@@ -43,7 +43,7 @@ function Dashboard() {
   const projects = useStore(store.getProjects);
   const testimonials = useStore(store.getTestimonials);
   const education = useStore(store.getEducation);
-  const [tab, setTab] = useState<"projects" | "testimonials" | "education" | "texts">("texts");
+  const [tab, setTab] = useState<"projects" | "testimonials" | "education" | "texts" | "design">("texts");
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
