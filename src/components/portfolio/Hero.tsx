@@ -6,7 +6,7 @@ import { T, useText } from "@/lib/portfolio-store";
 
 export function Hero() {
   return (
-    <section id="home" className="relative min-h-screen pt-28 sm:pt-32 pb-16 sm:pb-20 overflow-hidden">
+    <section id="home" className="relative min-h-screen pt-28 sm:pt-32 pb-4 sm:pb-6 overflow-hidden">
       {/* Soft background layers */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid opacity-40" />
