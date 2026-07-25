@@ -29,8 +29,8 @@ export function Education() {
                   </span>
                 </div>
                 <h3 className="font-display text-lg mb-1 leading-snug">{it.degree}</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-1">Passing year: {it.year}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground/80">Institute: {it.institute}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-1">{yearLabel} {it.year}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground/80">{instLabel} {it.institute}</p>
               </div>
             </Reveal>
           ))}
