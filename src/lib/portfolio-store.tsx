@@ -93,7 +93,17 @@ export const SECTIONS: { id: string; label: string }[] = [
   { id: "contact", label: "Contact" },
 ];
 
-export const defaultSettings: Settings = { spacing: {}, css: "" };
+export const defaultSettings: Settings = {
+  spacing: {},
+  css: "",
+  seo: {
+    title: "Zobayerul Islam — Web Developer & Ecommerce Expert",
+    description:
+      "Zobayerul Islam — Web Developer & Ecommerce Expert building modern websites, mobile apps, CRM, ERP and custom software for growing businesses.",
+    keywords: "web developer, ecommerce expert, shopify, react developer, Bangladesh",
+    ogImage: "",
+  },
+};
 
 // In-memory cache, hydrated from Supabase on load.
 type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string>; settings: Settings };
