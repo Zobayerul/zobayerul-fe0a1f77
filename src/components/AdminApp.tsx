@@ -275,3 +275,36 @@ function DesignPanel() {
     </div>
   );
 }
+
+function SeoPanel() {
+  const s = useStore(store.getSettings);
+  const [f, setF] = useState(s.seo);
+  const fields: { k: keyof typeof f; label: string; hint: string; area?: boolean }[] = [
+    { k: "title", label: "Meta title", hint: "60 characters or less" },
+    { k: "description", label: "Meta description", hint: "160 characters or less", area: true },
+    { k: "keywords", label: "Keywords", hint: "comma separated" },
+    { k: "ogImage", label: "Social share image URL", hint: "full https:// link" },
+  ];
+  return (
+    <div className="glass rounded-2xl p-5 sm:p-6 space-y-4">
+      <h3 className="font-display text-xl">SEO settings</h3>
+      <p className="text-sm text-muted-foreground">These tags apply live on the website.</p>
+      {fields.map((fl) => (
+        <div key={fl.k}>
+          <label className="flex justify-between text-xs text-muted-foreground mb-1">
+            <span>{fl.label}</span>
+            <span>{(f?.[fl.k] || "").length} chars — {fl.hint}</span>
+          </label>
+          {fl.area ? (
+            <textarea rows={3} value={f?.[fl.k] || ""} onChange={(e) => setF({ ...f, [fl.k]: e.target.value })}
+              className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm" />
+          ) : (
+            <input value={f?.[fl.k] || ""} onChange={(e) => setF({ ...f, [fl.k]: e.target.value })}
+              className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm" />
+          )}
+        </div>
+      ))}
+      <button onClick={() => store.setSettings({ ...s, seo: f })} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save SEO</button>
+    </div>
+  );
+}
