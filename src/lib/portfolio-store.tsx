@@ -77,7 +77,8 @@ export const defaultTexts: Record<string, string> = {
 export const defaultEducationEyebrow = "Education";
 
 export type Spacing = { t: number; b: number };
-export type Settings = { spacing: Record<string, Spacing>; css: string };
+export type Seo = { title: string; description: string; keywords: string; ogImage: string };
+export type Settings = { spacing: Record<string, Spacing>; css: string; seo: Seo };
 
 export const SECTIONS: { id: string; label: string }[] = [
   { id: "home", label: "Hero" },
