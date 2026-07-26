@@ -62,6 +62,7 @@ function Dashboard() {
       {tab === "education" && <EducationPanel items={education} />}
       {tab === "texts" && <TextsPanel />}
       {tab === "design" && <DesignPanel />}
+      {tab === "seo" && <SeoPanel />}
     </div>
   );
 }
