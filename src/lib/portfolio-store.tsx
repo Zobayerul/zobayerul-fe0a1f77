@@ -77,7 +77,8 @@ export const defaultTexts: Record<string, string> = {
 export const defaultEducationEyebrow = "Education";
 
 export type Spacing = { t: number; b: number };
-export type Settings = { spacing: Record<string, Spacing>; css: string };
+export type Seo = { title: string; description: string; keywords: string; ogImage: string };
+export type Settings = { spacing: Record<string, Spacing>; css: string; seo: Seo };
 
 export const SECTIONS: { id: string; label: string }[] = [
   { id: "home", label: "Hero" },
@@ -92,7 +93,17 @@ export const SECTIONS: { id: string; label: string }[] = [
   { id: "contact", label: "Contact" },
 ];
 
-export const defaultSettings: Settings = { spacing: {}, css: "" };
+export const defaultSettings: Settings = {
+  spacing: {},
+  css: "",
+  seo: {
+    title: "Zobayerul Islam — Web Developer & Ecommerce Expert",
+    description:
+      "Zobayerul Islam — Web Developer & Ecommerce Expert building modern websites, mobile apps, CRM, ERP and custom software for growing businesses.",
+    keywords: "web developer, ecommerce expert, shopify, react developer, Bangladesh",
+    ogImage: "",
+  },
+};
 
 // In-memory cache, hydrated from Supabase on load.
 type Cache = { projects: Project[]; testimonials: Testimonial[]; education: Education[]; texts: Record<string, string>; settings: Settings };

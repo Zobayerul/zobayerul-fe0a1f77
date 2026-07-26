@@ -36,7 +36,7 @@ function Dashboard() {
   const projects = useStore(store.getProjects);
   const testimonials = useStore(store.getTestimonials);
   const education = useStore(store.getEducation);
-  const [tab, setTab] = useState<"projects" | "testimonials" | "education" | "texts" | "design">("texts");
+  const [tab, setTab] = useState<"projects" | "testimonials" | "education" | "texts" | "design" | "seo">("texts");
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
@@ -54,6 +54,7 @@ function Dashboard() {
         <button onClick={() => setTab("testimonials")} className={`px-4 py-2 rounded-full text-sm ${tab === "testimonials" ? "bg-primary text-primary-foreground" : "glass"}`}>Testimonials ({testimonials.length})</button>
         <button onClick={() => setTab("education")} className={`px-4 py-2 rounded-full text-sm ${tab === "education" ? "bg-primary text-primary-foreground" : "glass"}`}>Education ({education.length})</button>
         <button onClick={() => setTab("design")} className={`px-4 py-2 rounded-full text-sm ${tab === "design" ? "bg-primary text-primary-foreground" : "glass"}`}>Design / CSS</button>
+        <button onClick={() => setTab("seo")} className={`px-4 py-2 rounded-full text-sm ${tab === "seo" ? "bg-primary text-primary-foreground" : "glass"}`}>SEO</button>
       </div>
 
       {tab === "projects" && <ProjectsPanel items={projects} />}
@@ -61,6 +62,7 @@ function Dashboard() {
       {tab === "education" && <EducationPanel items={education} />}
       {tab === "texts" && <TextsPanel />}
       {tab === "design" && <DesignPanel />}
+      {tab === "seo" && <SeoPanel />}
     </div>
   );
 }
@@ -270,6 +272,39 @@ function DesignPanel() {
           <button onClick={() => { setCss(""); store.setSettings({ ...s, css: "" }); }} className="px-4 py-2 rounded-full glass text-sm">Clear</button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function SeoPanel() {
+  const s = useStore(store.getSettings);
+  const [f, setF] = useState(s.seo);
+  const fields: { k: keyof typeof f; label: string; hint: string; area?: boolean }[] = [
+    { k: "title", label: "Meta title", hint: "60 characters or less" },
+    { k: "description", label: "Meta description", hint: "160 characters or less", area: true },
+    { k: "keywords", label: "Keywords", hint: "comma separated" },
+    { k: "ogImage", label: "Social share image URL", hint: "full https:// link" },
+  ];
+  return (
+    <div className="glass rounded-2xl p-5 sm:p-6 space-y-4">
+      <h3 className="font-display text-xl">SEO settings</h3>
+      <p className="text-sm text-muted-foreground">These tags apply live on the website.</p>
+      {fields.map((fl) => (
+        <div key={fl.k}>
+          <label className="flex justify-between text-xs text-muted-foreground mb-1">
+            <span>{fl.label}</span>
+            <span>{(f?.[fl.k] || "").length} chars — {fl.hint}</span>
+          </label>
+          {fl.area ? (
+            <textarea rows={3} value={f?.[fl.k] || ""} onChange={(e) => setF({ ...f, [fl.k]: e.target.value })}
+              className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm" />
+          ) : (
+            <input value={f?.[fl.k] || ""} onChange={(e) => setF({ ...f, [fl.k]: e.target.value })}
+              className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm" />
+          )}
+        </div>
+      ))}
+      <button onClick={() => store.setSettings({ ...s, seo: f })} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save SEO</button>
     </div>
   );
 }
