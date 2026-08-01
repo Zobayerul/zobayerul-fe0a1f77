@@ -13,6 +13,7 @@ import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { WhatsAppFab } from "@/components/portfolio/WhatsAppFab";
 import { ThemeToggle } from "@/components/portfolio/ThemeToggle";
+import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { SiteStyle } from "@/components/portfolio/SiteStyle";
 
 export const Route = createFileRoute("/")({
@@ -83,6 +84,7 @@ function Index() {
       <Footer />
       <WhatsAppFab />
       <ThemeToggle />
+      <ScrollProgress />
     </div>
   );
 }

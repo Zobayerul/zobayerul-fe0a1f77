@@ -180,8 +180,19 @@ export const store = {
 
 };
 
+
+
+
 export function useStore<T>(getter: () => T): T {
-  const [v, setV] = useState<T>(getter);
+  // Always render the SSR/default snapshot first, then swap after mount to avoid hydration mismatch.
+  const [v, setV] = useState<T>(() => {
+    const g = getter as unknown as () => T;
+    if (g === (store.getProjects as unknown)) return defaultProjects as unknown as T;
+    if (g === (store.getTestimonials as unknown)) return defaultTestimonials as unknown as T;
+    if (g === (store.getEducation as unknown)) return defaultEducation as unknown as T;
+    if (g === (store.getSettings as unknown)) return defaultSettings as unknown as T;
+    return getter();
+  });
   useEffect(() => {
     setV(getter());
     const fn = () => setV(getter());
@@ -203,6 +214,7 @@ export function useText(key: string): string {
   }, [key]);
   return v;
 }
+
 
 export function T({ id }: { id: string }) {
   const v = useText(id);
