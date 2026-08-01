@@ -5,7 +5,7 @@ export type Project = { id: string; img: string; title: string; tag: string; des
 export type Testimonial = { id: string; name: string; role: string; text: string };
 export type Education = { id: string; degree: string; year: string; institute: string; status: string };
 
-const AK = "portfolio.admin";
+
 
 export const defaultProjects: Project[] = [
   { id: "1", img: "", title: "Tour Booking Platform", tag: "Travel", desc: "End-to-end tour and travel booking system.", url: "https://tour.betabig.com/" },
