@@ -15,22 +15,31 @@ function Login() {
   const [u, setU] = useState("");
   const [p, setP] = useState("");
   const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
   return (
     <div className="min-h-screen grid place-items-center px-4">
       <form
-        onSubmit={(e) => { e.preventDefault(); if (!store.login(u, p)) setErr("Invalid credentials"); }}
-        className="w-full max-w-md glass-strong rounded-3xl p-8 space-y-5"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setBusy(true);
+          setErr("");
+          const ok = await store.login(u, p);
+          setBusy(false);
+          if (!ok) setErr("Invalid credentials");
+        }}
+        className="w-full max-w-md glass-strong rounded-3xl p-8 space-y-5 animate-scale-in"
       >
         <h1 className="text-3xl font-display">Admin Login</h1>
-        <p className="text-sm text-muted-foreground">Sign in to manage portfolio content.</p>
-        <input value={u} onChange={(e) => setU(e.target.value)} placeholder="Username" className="w-full rounded-xl bg-card border border-border px-4 py-3" />
-        <input value={p} onChange={(e) => setP(e.target.value)} type="password" placeholder="Password" className="w-full rounded-xl bg-card border border-border px-4 py-3" />
+        <p className="text-sm text-muted-foreground">Sign in with your admin email to manage content.</p>
+        <input value={u} onChange={(e) => setU(e.target.value)} type="email" autoComplete="username" placeholder="Email" className="w-full rounded-xl bg-card border border-border px-4 py-3" />
+        <input value={p} onChange={(e) => setP(e.target.value)} type="password" autoComplete="current-password" placeholder="Password" className="w-full rounded-xl bg-card border border-border px-4 py-3" />
         {err && <div className="text-sm text-destructive">{err}</div>}
-        <button className="w-full px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold">Login</button>
+        <button disabled={busy} className="w-full px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold disabled:opacity-60">{busy ? "Signing in…" : "Login"}</button>
       </form>
     </div>
   );
 }
+
 
 function Dashboard() {
   const projects = useStore(store.getProjects);
