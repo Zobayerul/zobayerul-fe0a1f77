@@ -180,7 +180,8 @@ export const store = {
 
 };
 
-const defaultsFor: Record<string, unknown> = {};
+
+
 
 export function useStore<T>(getter: () => T): T {
   // Always render the SSR/default snapshot first, then swap after mount to avoid hydration mismatch.
