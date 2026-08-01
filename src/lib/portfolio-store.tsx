@@ -5,7 +5,7 @@ export type Project = { id: string; img: string; title: string; tag: string; des
 export type Testimonial = { id: string; name: string; role: string; text: string };
 export type Education = { id: string; degree: string; year: string; institute: string; status: string };
 
-const AK = "portfolio.admin";
+
 
 export const defaultProjects: Project[] = [
   { id: "1", img: "", title: "Tour Booking Platform", tag: "Travel", desc: "End-to-end tour and travel booking system.", url: "https://tour.betabig.com/" },
@@ -149,15 +149,12 @@ if (typeof window !== "undefined") {
     .subscribe();
 }
 
-function readLocal<T>(k: string, fallback: T): T {
-  if (typeof window === "undefined") return fallback;
-  try { const v = localStorage.getItem(k); return v ? (JSON.parse(v) as T) : fallback; } catch { return fallback; }
+let authed = false;
+if (typeof window !== "undefined") {
+  supabase.auth.getSession().then(({ data }) => { authed = !!data.session; emit(); });
+  supabase.auth.onAuthStateChange((_e, session) => { authed = !!session; emit(); });
 }
-function writeLocal(k: string, v: unknown) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(k, JSON.stringify(v));
-  emit();
-}
+
 
 export const store = {
   isLoaded: () => loaded,
@@ -171,12 +168,16 @@ export const store = {
   setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
   getSettings: () => cache.settings,
   setSettings: (v: Settings) => { cache.settings = v; emit(); saveKey("settings", v); },
-  isLoggedIn: () => readLocal<boolean>(AK, false),
-  login: (u: string, p: string) => {
-    if (u === "Shishir" && p === "#Zobayerul192030") { writeLocal(AK, true); return true; }
-    return false;
+  isLoggedIn: () => authed,
+  login: async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+    if (error) return false;
+    authed = true;
+    emit();
+    return true;
   },
-  logout: () => writeLocal(AK, false),
+  logout: async () => { await supabase.auth.signOut(); authed = false; emit(); },
+
 };
 
 export function useStore<T>(getter: () => T): T {
