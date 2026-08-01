@@ -149,15 +149,12 @@ if (typeof window !== "undefined") {
     .subscribe();
 }
 
-function readLocal<T>(k: string, fallback: T): T {
-  if (typeof window === "undefined") return fallback;
-  try { const v = localStorage.getItem(k); return v ? (JSON.parse(v) as T) : fallback; } catch { return fallback; }
+let authed = false;
+if (typeof window !== "undefined") {
+  supabase.auth.getSession().then(({ data }) => { authed = !!data.session; emit(); });
+  supabase.auth.onAuthStateChange((_e, session) => { authed = !!session; emit(); });
 }
-function writeLocal(k: string, v: unknown) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(k, JSON.stringify(v));
-  emit();
-}
+
 
 export const store = {
   isLoaded: () => loaded,
