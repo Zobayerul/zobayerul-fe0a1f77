@@ -171,12 +171,16 @@ export const store = {
   setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
   getSettings: () => cache.settings,
   setSettings: (v: Settings) => { cache.settings = v; emit(); saveKey("settings", v); },
-  isLoggedIn: () => readLocal<boolean>(AK, false),
-  login: (u: string, p: string) => {
-    if (u === "Shishir" && p === "#Zobayerul192030") { writeLocal(AK, true); return true; }
-    return false;
+  isLoggedIn: () => authed,
+  login: async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+    if (error) return false;
+    authed = true;
+    emit();
+    return true;
   },
-  logout: () => writeLocal(AK, false),
+  logout: async () => { await supabase.auth.signOut(); authed = false; emit(); },
+
 };
 
 export function useStore<T>(getter: () => T): T {
