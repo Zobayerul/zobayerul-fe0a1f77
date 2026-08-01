@@ -22,7 +22,7 @@ export function Testimonials() {
 
         <div className="grid md:grid-cols-3 gap-5 sm:gap-6 transition-opacity">
           {current.map((r) => (
-            <div key={r.id} className="relative glass rounded-2xl p-6 sm:p-7 h-full hover-lift">
+            <div key={r.id} className="relative glass rounded-2xl p-6 sm:p-7 h-full hover-lift tilt sheen">
               <Quote className="absolute top-5 right-5 w-8 h-8 text-accent/20" />
               <div className="flex gap-0.5 mb-4">
                 {Array.from({ length: 5 }).map((_, k) => (
