@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { store, useStore, defaultTexts, SECTIONS, type Project, type Testimonial, type Education } from "@/lib/portfolio-store";
 import { LogOut, Plus, Trash2, Save, RotateCcw } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 
 export function Admin() {
   const loggedIn = useStore(store.isLoggedIn);
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <Toaster position="top-center" />
       {loggedIn ? <Dashboard /> : <Login />}
     </div>
   );
@@ -48,23 +50,28 @@ function Dashboard() {
   const [tab, setTab] = useState<"projects" | "testimonials" | "education" | "texts" | "design" | "seo">("texts");
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      <header className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-3xl font-display">Dashboard</h1>
-        <div className="flex gap-2">
-          <a href="/" className="px-4 py-2 rounded-full glass text-sm">View site</a>
-          <button onClick={() => store.logout()} className="px-4 py-2 rounded-full bg-foreground text-background text-sm inline-flex items-center gap-2"><LogOut className="w-4 h-4" />Logout</button>
+    <div className="max-w-6xl mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-5 sm:space-y-6">
+      <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+        <h1 className="truncate text-2xl sm:text-3xl font-display">Dashboard</h1>
+        <div className="flex gap-2 shrink-0">
+          <a href="/" className="px-3 sm:px-4 py-2 rounded-full glass text-xs sm:text-sm">View site</a>
+          <button onClick={() => store.logout()} className="px-3 sm:px-4 py-2 rounded-full bg-foreground text-background text-xs sm:text-sm inline-flex items-center gap-2"><LogOut className="w-4 h-4" />Logout</button>
         </div>
       </header>
 
-      <div className="flex gap-2 flex-wrap">
-        <button onClick={() => setTab("texts")} className={`px-4 py-2 rounded-full text-sm ${tab === "texts" ? "bg-primary text-primary-foreground" : "glass"}`}>Site Text</button>
-        <button onClick={() => setTab("projects")} className={`px-4 py-2 rounded-full text-sm ${tab === "projects" ? "bg-primary text-primary-foreground" : "glass"}`}>Projects ({projects.length})</button>
-        <button onClick={() => setTab("testimonials")} className={`px-4 py-2 rounded-full text-sm ${tab === "testimonials" ? "bg-primary text-primary-foreground" : "glass"}`}>Testimonials ({testimonials.length})</button>
-        <button onClick={() => setTab("education")} className={`px-4 py-2 rounded-full text-sm ${tab === "education" ? "bg-primary text-primary-foreground" : "glass"}`}>Education ({education.length})</button>
-        <button onClick={() => setTab("design")} className={`px-4 py-2 rounded-full text-sm ${tab === "design" ? "bg-primary text-primary-foreground" : "glass"}`}>Design / CSS</button>
-        <button onClick={() => setTab("seo")} className={`px-4 py-2 rounded-full text-sm ${tab === "seo" ? "bg-primary text-primary-foreground" : "glass"}`}>SEO</button>
+      <div className="flex gap-2 overflow-x-auto pb-1 -mx-3 px-3 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible">
+        {([
+          ["texts", "Site Text"],
+          ["projects", `Projects (${projects.length})`],
+          ["testimonials", `Testimonials (${testimonials.length})`],
+          ["education", `Education (${education.length})`],
+          ["design", "Design / CSS"],
+          ["seo", "SEO"],
+        ] as const).map(([id, label]) => (
+          <button key={id} onClick={() => setTab(id)} className={`shrink-0 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm ${tab === id ? "bg-primary text-primary-foreground" : "glass"}`}>{label}</button>
+        ))}
       </div>
+
 
       {tab === "projects" && <ProjectsPanel items={projects} />}
       {tab === "testimonials" && <TestimonialsPanel items={testimonials} />}
