@@ -127,8 +127,28 @@ async function loadAll() {
   emit();
 }
 
+const timers: Record<string, ReturnType<typeof setTimeout>> = {};
+
+async function writeKey(key: string, value: unknown) {
+  const { error } = await supabase
+    .from("site_content")
+    .upsert({ key, value: value as never, updated_at: new Date().toISOString() }, { onConflict: "key" });
+  return error;
+}
+
 async function saveKey(key: "projects" | "testimonials" | "education" | "texts" | "settings", value: unknown) {
-  await supabase.from("site_content").upsert({ key, value: value as never, updated_at: new Date().toISOString() });
+  clearTimeout(timers[key]);
+  timers[key] = setTimeout(async () => {
+    let error = await writeKey(key, value);
+    if (error) {
+      // session may have expired — refresh and retry once
+      await supabase.auth.refreshSession();
+      error = await writeKey(key, value);
+    }
+    const { toast } = await import("sonner");
+    if (error) toast.error(`Save failed: ${error.message}. Please log in again.`);
+    else toast.success("Saved", { duration: 1200 });
+  }, 500);
 }
 
 if (typeof window !== "undefined") {
