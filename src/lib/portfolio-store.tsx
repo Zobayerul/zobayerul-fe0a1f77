@@ -113,6 +113,7 @@ let loaded = false;
 const emit = () => { if (typeof window !== "undefined") window.dispatchEvent(new Event("portfolio-store")); };
 
 async function loadAll() {
+  if (dirty.size > 0) return;
   const { data } = await supabase.from("site_content").select("key,value");
   if (data) {
     for (const row of data) {
