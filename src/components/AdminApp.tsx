@@ -54,6 +54,7 @@ function Dashboard() {
       <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <h1 className="truncate text-2xl sm:text-3xl font-display">Dashboard</h1>
         <div className="flex gap-2 shrink-0">
+          <SaveButton />
           <a href="/" className="px-3 sm:px-4 py-2 rounded-full glass text-xs sm:text-sm">View site</a>
           <button onClick={() => store.logout()} className="px-3 sm:px-4 py-2 rounded-full bg-foreground text-background text-xs sm:text-sm inline-flex items-center gap-2"><LogOut className="w-4 h-4" />Logout</button>
         </div>
@@ -322,5 +323,20 @@ function SeoPanel() {
       ))}
       <button onClick={() => store.setSettings({ ...s, seo: f })} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save SEO</button>
     </div>
+  );
+}
+
+function SaveButton() {
+  const dirty = useStore(store.isDirty);
+  const saving = useStore(store.isSaving);
+  return (
+    <button
+      onClick={() => store.save()}
+      disabled={!dirty || saving}
+      className="px-3 sm:px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm inline-flex items-center gap-2 disabled:opacity-40"
+    >
+      <Save className="w-4 h-4" />
+      {saving ? "Saving..." : dirty ? "Save changes" : "Saved"}
+    </button>
   );
 }
