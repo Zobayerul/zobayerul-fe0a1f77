@@ -152,7 +152,11 @@ async function saveKey(key: "projects" | "testimonials" | "education" | "texts" 
 }
 
 if (typeof window !== "undefined") {
+if (typeof window !== "undefined") {
   loadAll();
+  window.addEventListener("focus", () => loadAll());
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) loadAll(); });
+
   // Realtime cross-browser sync
   supabase
     .channel("site_content_changes")
