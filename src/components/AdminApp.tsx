@@ -285,7 +285,7 @@ function DesignPanel() {
           placeholder={"#about { background: #fafafa; }\n.hero-title { letter-spacing: -1px; }"}
           className="w-full rounded-lg bg-card border border-border px-3 py-2 text-sm font-mono" />
         <div className="flex gap-2">
-          <button onClick={() => store.setSettings({ ...s, css })} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save CSS</button>
+          <button onClick={() => { store.setSettings({ ...s, css }); store.save(); }} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save CSS</button>
           <button onClick={() => { setCss(""); store.setSettings({ ...s, css: "" }); }} className="px-4 py-2 rounded-full glass text-sm">Clear</button>
         </div>
       </div>
@@ -321,7 +321,7 @@ function SeoPanel() {
           )}
         </div>
       ))}
-      <button onClick={() => store.setSettings({ ...s, seo: f })} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save SEO</button>
+      <button onClick={() => { store.setSettings({ ...s, seo: f }); store.save(); }} className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm inline-flex items-center gap-2"><Save className="w-4 h-4" />Save SEO</button>
     </div>
   );
 }
