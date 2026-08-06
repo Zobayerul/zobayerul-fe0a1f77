@@ -127,7 +127,8 @@ async function loadAll() {
   emit();
 }
 
-const timers: Record<string, ReturnType<typeof setTimeout>> = {};
+const dirty = new Set<string>();
+let saving = false;
 
 async function writeKey(key: string, value: unknown) {
   const { error } = await supabase
@@ -136,19 +137,33 @@ async function writeKey(key: string, value: unknown) {
   return error;
 }
 
-async function saveKey(key: "projects" | "testimonials" | "education" | "texts" | "settings", value: unknown) {
-  clearTimeout(timers[key]);
-  timers[key] = setTimeout(async () => {
-    let error = await writeKey(key, value);
+function mark(key: string) { dirty.add(key); emit(); }
+
+async function saveAll() {
+  if (saving || dirty.size === 0) return true;
+  saving = true; emit();
+  const payload: Record<string, unknown> = {
+    projects: cache.projects,
+    testimonials: cache.testimonials,
+    education: cache.education,
+    texts: cache.texts,
+    settings: cache.settings,
+  };
+  let failed: string | null = null;
+  for (const key of Array.from(dirty)) {
+    let error = await writeKey(key, payload[key]);
     if (error) {
-      // session may have expired — refresh and retry once
       await supabase.auth.refreshSession();
-      error = await writeKey(key, value);
+      error = await writeKey(key, payload[key]);
     }
-    const { toast } = await import("sonner");
-    if (error) toast.error(`Save failed: ${error.message}. Please log in again.`);
-    else toast.success("Saved", { duration: 1200 });
-  }, 500);
+    if (error) failed = error.message;
+    else dirty.delete(key);
+  }
+  saving = false; emit();
+  const { toast } = await import("sonner");
+  if (failed) { toast.error(`Save failed: ${failed}`); return false; }
+  toast.success("All changes saved");
+  return true;
 }
 
 if (typeof window !== "undefined") {
@@ -182,15 +197,18 @@ if (typeof window !== "undefined") {
 export const store = {
   isLoaded: () => loaded,
   getProjects: () => cache.projects,
-  setProjects: (v: Project[]) => { cache.projects = v; emit(); saveKey("projects", v); },
+  setProjects: (v: Project[]) => { cache.projects = v; emit(); mark("projects"); },
   getTestimonials: () => cache.testimonials,
-  setTestimonials: (v: Testimonial[]) => { cache.testimonials = v; emit(); saveKey("testimonials", v); },
+  setTestimonials: (v: Testimonial[]) => { cache.testimonials = v; emit(); mark("testimonials"); },
   getEducation: () => cache.education,
-  setEducation: (v: Education[]) => { cache.education = v; emit(); saveKey("education", v); },
+  setEducation: (v: Education[]) => { cache.education = v; emit(); mark("education"); },
   getTexts: () => cache.texts,
-  setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); saveKey("texts", v); },
+  setTexts: (v: Record<string, string>) => { cache.texts = v; emit(); mark("texts"); },
   getSettings: () => cache.settings,
-  setSettings: (v: Settings) => { cache.settings = v; emit(); saveKey("settings", v); },
+  setSettings: (v: Settings) => { cache.settings = v; emit(); mark("settings"); },
+  isDirty: () => dirty.size > 0,
+  isSaving: () => saving,
+  save: saveAll,
   isLoggedIn: () => authed,
   login: async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
